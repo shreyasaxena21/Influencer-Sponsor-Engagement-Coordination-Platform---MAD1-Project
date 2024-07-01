@@ -13,32 +13,32 @@
             <div id="input-form-sponser">
                 <h2> SignUp </h2>
                 <div id = ""></div>
-                <form>
+                <form method = "POST" action="/influencer_signup">
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
+                        <label for="email" name="email" class="form-label">Email</label>
                         <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
                         <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                     </div>
                     <div class="mb-3">
-                        <label for="fullname" class="form-label">Full Name</label>
+                        <label for="fullname" name="full_name" class="form-label">Full Name</label>
                         <form>
                             <div class="row">
                               <div class="col">
-                                <input type="text" class="form-control" placeholder="First name">
+                                <input type="text" name="fname" class="form-control" placeholder="First name">
                               </div>
                               <div class="col">
-                                <input type="text" class="form-control" placeholder="Last name">
+                                <input type="text" name="lname" class="form-control" placeholder="Last name">
                               </div>
                             </div>
                           </form>
                     </div>
                     <div class="mb-3">
-                      <label for="username" class="form-label">User Name</label>
+                      <label for="username" name="uname" class="form-label">User Name</label>
                       <input type="text" class="form-control" id="username" aria-describedby="userHelp">
                       <div id="userHelp" class="form-text">We'll never share your username with anyone else.</div>
                     </div>
                     <div class="mb-3">
-                      <label for="pwd" class="form-label">Password</label>
+                      <label for="pwd" name="pwd" class="form-label">Password</label>
                       <input type="password" class="form-control" id="pwd">
                     </div>
                     Platform presence
@@ -61,8 +61,19 @@
                       </label>
                     </div>
                     <br>
-                    <button type="submit" class="btn btn-primary">Register</button>
-                    Already registered ?<a href="/login" > Login</a>
+                    <div class="d-flex justify-content-md-center">
+                      <button type="submit" class="btn btn-primary">Register</button>
+                    </div>
+                    <div class="d-flex justify-content-md-center">
+                      Already registered ?
+                    </div>
+                    <div class="d-flex justify-content-md-center">
+                      <a href="/login" > Login</a>
+                    </div>
+                    <div class="d-flex justify-content-md-center">
+                      {{msg}}
+                    </div>
+                    
                   </form>
             </div> 
         </div>

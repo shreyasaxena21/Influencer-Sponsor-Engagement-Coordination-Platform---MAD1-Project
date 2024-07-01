@@ -13,19 +13,31 @@
             <div id="input-form">
                 <h2> User Login </h2>
                 <div id = ""></div>
-                <form>
+                <form method = "POST" action="/login">
                     <div class="mb-3">
                       <label for="username" class="form-label">User Name</label>
-                      <input type="text" class="form-control" id="username" aria-describedby="userHelp">
+                      <input type="text" class="form-control" name="uname" id="username" aria-describedby="userHelp">
                       <div id="userHelp" class="form-text">We'll never share your username with anyone else.</div>
                     </div>
                     <div class="mb-3">
                       <label for="pwd" class="form-label">Password</label>
-                      <input type="password" class="form-control" id="pwd">
+                      <input type="password" name="pwd" class="form-control" id="pwd">
                     </div>
-                    <button type="submit" class="btn btn-primary">Login</button><br><br>
-                    New User ? <br><a href="/sponser_signup" > Sponser Register </a> <br>
-                    <a href = "/influencer_signup">Influencer Register</a>
+                    <div class="d-flex justify-content-md-center">
+                      <button type="submit" class="btn btn-primary">Login</button><br><br>
+                    </div>
+                    <div class="d-flex justify-content-md-center">
+                      New User ? 
+                    </div>
+                    <div class="d-flex justify-content-md-center">
+                      <a href="/sponser_signup" > Sponser Register </a> <br>
+                    </div>
+                    <div class="d-flex justify-content-md-center">
+                      <a href = "/influencer_signup"> Influencer Register</a> 
+                    </div>
+                    <div class="d-flex justify-content-md-center">
+                      {{msg}}
+                    </div>
                   </form>                 
             </div> 
         </div>
