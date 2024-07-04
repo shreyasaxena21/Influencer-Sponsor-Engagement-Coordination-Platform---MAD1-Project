@@ -4,23 +4,30 @@ from .models import *
 
 @app.route("/")#refers base url 127.0.0.1.5000 local host
 def home():
-    return "<h2> Welcome to Influencer - Sponser Coordination Platform </h2>"
+    return render_template("home.html")
 
 @app.route("/login", methods=["GET","POST"]) #it refers base url and login
 def user_login():
     if request.method=="POST":
         uname=request.form.get("uname")
         pwd=request.form.get("pwd")
-        user = User_Info.query.filter_by(user_name=uname, pwd=pwd).first() #Get existing user matched
-        if user and user.role==0:
+        admin_user = Admin_Info.query.filter_by(user_name=uname, pwd=pwd).first() #Get existing user matched
+        #sponser_user=Sponser_Info.query.filter_by(user_name=uname, pwd=pwd)
+        #influencer_user=Influencer_Info.query.filter_by(user_name=uname, pwd=pwd)
+        if admin_user and admin_user.is_admin:
             return render_template("admin_dashboard_info.html")
-        elif user and user.role==1:
-            return render_template("influencer_dashboard_profile.html", username=user.user_name)
+        
+        #elif sponser_user and sponser_user.is_sponser:
+         #  return render_template("sponser_dashboard_profile.html", username=  sponser_user.user_name)
+        
+        #elif influencer_user and influencer_user.is_influencer:
+         #  return render_template("influencer_dashboard_profile.html", username=  influencer_user.user_name)
+            
         else:
             return render_template("login.html",  msg="Invaid Credentials!!")
     else:
        return render_template("login.html",msg="")
-
+    
 
 @app.route("/influencer_signup", methods=["GET","POST"]) 
 def influencer_signup():
@@ -30,6 +37,7 @@ def influencer_signup():
         lname=request.form.get("lname")
         uname=request.form.get("uname")
         pwd=request.form.get("pwd")
+        category=request.form.get("category")
         user = User_Info.query.filter_by(user_name=uname).first() #Get existing user matched
         if not user:
             new_user=User_Info(email=email, fname=fname, lname=lname,user_name=uname, pwd=pwd)
@@ -52,6 +60,14 @@ def sponser_signup():
         uname=request.form.get("uname")
         pwd=request.form.get("pwd")
         indus=request.form.get("indus")
+        company_name=request.form.get("company_name")
     return render_template("sponser.html")
+
+
+
+
+
+
+
 
 

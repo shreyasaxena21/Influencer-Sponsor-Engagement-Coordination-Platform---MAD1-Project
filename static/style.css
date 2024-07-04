@@ -1,33 +1,74 @@
 *{
-    margin: 0px;
+    margin: 0%;
+    padding: 0%;
 }
+
 
 #container, #panel{
     border: 2px solid black;
+    padding: 30px;
+    
 }
 
 #panel{
     width: 80%;
     margin: auto;
-    height: 800px;
+    height: 1000px;
+   
 }
 
 #input-form{
-    border: 1px solid green;
+    border: 1px solid brown;
     width: 600px;
     height: 450px;
     margin: auto;
     margin-top: 100px;
     border-radius: 20px;
+    background-color:  lightgoldenrodyellow;
+    padding: 30px;
     
 }
 
 #input-form-sponser{
-    border: 1px solid green;
+    border: 1px solid brown;
     width: 800px;
-    height: 650px;
+    height: 750px;
     margin: auto;
     margin-top: 100px;
     border-radius: 20px;
+    padding: 30px;
+    background-color: lightgoldenrodyellow;
+    
+    
+}
+
+#container-influencer, #panel-influencer{
+    border: 2px solid black;
+    height: 2000;
+}
+
+#panel-influencer{
+    width: 80%;
+    margin: auto;
+    height: 1800px;
+    padding: 30px;
+   
+}
+
+#input-form-influencer{
+    border: 1px solid brown;
+    width: 1000px;
+    height: 850px;
+    margin: auto;
+    margin-top: 100px;
+    border-radius: 20px;
+    padding: 30px;
+    background-color: lightgoldenrodyellow;
+    
+    
+}
+
+#home{
+    border: 1px solid black;
     
 }

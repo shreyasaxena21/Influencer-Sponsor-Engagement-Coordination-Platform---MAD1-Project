@@ -8,9 +8,8 @@
     <title>Influencer SignUp Page</title>
 </head>
 <body>
-    <div id = "container">
-        <div id = "panel">
-            <div id="input-form-sponser">
+    <div id = "container-influencer">
+            <div id="input-form-influencer">
                 <h2> SignUp </h2>
                 <div id = ""></div>
                 <form method = "POST" action="/influencer_signup">
@@ -21,16 +20,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="fullname" name="full_name" class="form-label">Full Name</label>
-                        <form>
-                            <div class="row">
-                              <div class="col">
-                                <input type="text" name="fname" class="form-control" placeholder="First name">
-                              </div>
-                              <div class="col">
-                                <input type="text" name="lname" class="form-control" placeholder="Last name">
-                              </div>
-                            </div>
-                          </form>
+                        <input type="text" class="form-control" id="username">
                     </div>
                     <div class="mb-3">
                       <label for="username" name="uname" class="form-label">User Name</label>
@@ -41,6 +31,15 @@
                       <label for="pwd" name="pwd" class="form-label">Password</label>
                       <input type="password" class="form-control" id="pwd">
                     </div>
+                    <div class="mb-3">
+                      <label for="category" name="category" class="form-label">Category</label>
+                      <input type="text" class="form-control" id="username" >
+                    </div>
+                    <div class="mb-3">
+                      <label for="category" name="niche" class="form-label">Niche</label>
+                      <input type="text" class="form-control" id="username" >
+                    </div>
+                    <br>
                     Platform presence
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
@@ -59,8 +58,8 @@
                       <label class="form-check-label" for="flexCheckDefault">
                         Instagram
                       </label>
-                    </div>
-                    <br>
+                    </div><br>
+                    
                     <div class="d-flex justify-content-md-center">
                       <button type="submit" class="btn btn-primary">Register</button>
                     </div>
@@ -76,7 +75,6 @@
                     
                   </form>
             </div> 
-        </div>
     </div>
 </body>
 </html>
