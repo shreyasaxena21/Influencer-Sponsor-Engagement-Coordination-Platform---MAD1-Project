@@ -11,17 +11,17 @@ def user_login():
     if request.method=="POST":
         uname=request.form.get("uname")
         pwd=request.form.get("pwd")
-        admin_user = Admin_Info.query.filter_by(user_name=uname, pwd=pwd).first() #Get existing user matched
-        #sponser_user=Sponser_Info.query.filter_by(user_name=uname, pwd=pwd)
-        #influencer_user=Influencer_Info.query.filter_by(user_name=uname, pwd=pwd)
+        admin_user = Admin.query.filter_by(user_name=uname, pass_hash=pwd).first() #Get existing user matched
+        sponser_user=Sponser.query.filter_by(user_name=uname, pass_hash=pwd)
+        influencer_user=Influencer.query.filter_by(user_name=uname, pass_hash=pwd)
         if admin_user and admin_user.is_admin:
             return render_template("admin_dashboard_info.html")
         
-        #elif sponser_user and sponser_user.is_sponser:
-         #  return render_template("sponser_dashboard_profile.html", username=  sponser_user.user_name)
+        elif sponser_user and sponser_user.is_sponser:
+           return render_template("sponser_dashboard_profile.html", username = sponser_user.user_name)
         
-        #elif influencer_user and influencer_user.is_influencer:
-         #  return render_template("influencer_dashboard_profile.html", username=  influencer_user.user_name)
+        elif influencer_user and influencer_user.is_influencer:
+           return render_template("influencer_dashboard_profile.html", username = influencer_user.user_name)
             
         else:
             return render_template("login.html",  msg="Invaid Credentials!!")
@@ -33,16 +33,16 @@ def user_login():
 def influencer_signup():
     if request.method=="POST":
         email=request.form.get("email")
-        fname=request.form.get("fname")
-        lname=request.form.get("lname")
+        full_name=request.form.get("full_name")
         uname=request.form.get("uname")
         pwd=request.form.get("pwd")
         category=request.form.get("category")
-        user = User_Info.query.filter_by(user_name=uname).first() #Get existing user matched
+        niche=request.form.get("niche")
+        user = Influencer.query.filter_by(user_name=uname).first() #Get existing user matched
         if not user:
-            new_user=User_Info(email=email, fname=fname, lname=lname,user_name=uname, pwd=pwd)
+            new_user=Influencer(email=email,user_name=uname, pass_hash=pwd, name=full_name,  niche=niche, category=category)
             db.session.add(new_user)
-            db.commit()
+            db.session.commit()
             return render_template("login.html", msg="")
         else:
 
