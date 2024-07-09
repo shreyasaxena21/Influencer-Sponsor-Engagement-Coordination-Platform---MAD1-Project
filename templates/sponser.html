@@ -8,59 +8,58 @@
     <title>Sponser SignUp Page</title>
 </head>
 <body>
-    <div id = "container">
-        <div id = "panel">
-            <div id="input-form-sponser">
-                <h2> SignUp </h2>
-                <div id = ""></div>
-                <form method = "POST" action="/sponser_signup">
-                    <div class="mb-3">
-                        <label for="email" name="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
-                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="fullname" name="full_name" class="form-label">Full Name</label>
-                        <form>
-                            <div class="row">
-                              <div class="col">
-                                <input type="text" name="fname" class="form-control" placeholder="First name">
-                              </div>
-                              <div class="col">
-                                <input type="text" name="lname" class="form-control" placeholder="Last name">
-                              </div>
-                            </div>
-                          </form>
-                    </div>
-                    <div class="mb-3">
-                      <label for="username" name="uname" class="form-label">User Name</label>
-                      <input type="text" class="form-control" id="username" aria-describedby="userHelp">
-                      <div id="userHelp" class="form-text">We'll never share your username with anyone else.</div>
-                    </div>
-                    <div class="mb-3">
-                      <label for="pwd" name="pwd" class="form-label">Password</label>
-                      <input type="password" class="form-control" id="pwd">
-                    </div>
-                    <div class="mb-3">
-                        <label for="industry" name="indus" class="form-label">Industry</label>
-                        <input type="text" class="form-control" id="username" >
-                    </div>
-                    <div class="mb-3">
-                      <label for="companyname" name="company_name" class="form-label">Company Name</label>
-                      <input type="text" class="form-control" id="username" aria-describedby="userHelp">
-                    </div>
-                    <div class="d-flex justify-content-md-center">
-                      <button type="submit" class="btn btn-primary">Register</button>
-                    </div>
-                    <div class="d-flex justify-content-md-center">
-                      Already registered ?
-                    </div>
-                    <div class="d-flex justify-content-md-center">
-                      <a href="/login" > Login</a>
-                    </div>
-                  </form>
-            </div> 
+    <div id = "container-influencer">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">ISCP</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="/login"> Login <span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/influencer_signup"> Influencer Register</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/sponser_signup"> Sponser Register</a>
+            </li>
+          </ul>
         </div>
-    </div>
+      </nav>
+    </nav>
+    <div id="input-form-sponser">
+      <h2> SignUp </h2>
+      <div id = ""></div>
+        <form method = "POST" action="/sponser_signup">
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp">
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+          </div>
+          <div class="mb-3">
+          <label for="companyname" class="form-label">Company Name</label>
+          <input type="text" class="form-control" name="company_name" id="fullname">
+        </div>
+        <div class="mb-3">
+          <label for="username" class="form-label">User Name</label>
+          <input type="text" class="form-control" name="uname" id="username" aria-describedby="userHelp">
+          <div id="userHelp" class="form-text">We'll never share your username with anyone else.</div>
+        </div>
+        <div class="mb-3">
+          <label for="pwd" class="form-label">Password</label>
+          <input type="password" class="form-control" name="pwd"  id="pwd">
+       </div>
+       <div class="mb-3">
+          <label for="industry" class="form-label">Industry</label>
+          <input type="text" class="form-control"  name="indus" id="industry" >
+        </div><br>
+        <div class="d-flex justify-content-md-center">
+          <button type="submit" class="btn btn-success">Register</button>
+        </div>
+      </form>
+    </div> 
+  </div>
 </body>
 </html>

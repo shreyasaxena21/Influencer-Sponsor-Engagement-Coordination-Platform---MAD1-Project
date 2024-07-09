@@ -6,7 +6,8 @@
 
 #container, #panel{
     border: 2px solid black;
-    padding: 30px;
+    height: 1500px;
+
     
 }
 
@@ -44,7 +45,9 @@
 
 #container-influencer, #panel-influencer{
     border: 2px solid black;
-    height: 2000;
+    height: 4000px;
+    padding-bottom: 10px;
+    
 }
 
 #panel-influencer{
@@ -58,7 +61,7 @@
 #input-form-influencer{
     border: 1px solid brown;
     width: 1000px;
-    height: 850px;
+    height: 950px;
     margin: auto;
     margin-top: 100px;
     border-radius: 20px;

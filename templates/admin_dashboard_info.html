@@ -9,33 +9,31 @@
 </head>
 <body>
     <div id = "container">
-          <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-              <a class="navbar-brand" href="#">Admin's Dashboard</a>
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                  <li class="nav-item active">
-                    <a class="nav-link" href="#"> Info |<span class="sr-only"></span></a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#"> Find |</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#"> Stats |</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#"> Logout</a>
-                  </li>
-                </ul>
-              </div>
-            </nav>
-          </nav><br>
-          <label><h4>Welcome Admin!</h4>  </label><br><br>
-          <label>Ongoing Campaigns :</label><br>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Admin's Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="#"> Info <span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="#"> Find<span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="#"> Stats <span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/login"> Logout</a>
+            </li>
+          </nav>
+          <label><h4>Welcome Admin!</h4></label><br><br>
+          <label><h5>Ongoing Campaigns :</h5></label><br>
           <!--Table creation-->
+
+          {%if campaigns%}
           <table class="table">
             <thead>
               <tr>
@@ -46,22 +44,21 @@
               </tr>
             </thead>
             <tbody>
+            {%for key, value in campaigns.items%}
               <tr>
-                <th scope="row">1</th>
-                <td>Campaign 01</td>
-                <td>Progress 20%</td>
+                <th scope="row">{{key}}</th>
+                <td>{{values[0]}}</td>
+                <td>{{values[1]}}</td>
                 <td><button type="button" class="btn btn-success">View</button></td>
               </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Campaign 02</td>
-                <td>Progress 40%</td>
-                <td><button type="button" class="btn btn-success">View</button></td>
-              </tr>
+            {%endfor%}
             </tbody>
           </table>
-          <br>
-          <label>Flagged Users/Campaigns :</label><br>
+          {%else%}
+          <h3>No Campaigns available!</h3>
+          {%endif%}
+          <!-- <br> -->
+          <!-- <label>Flagged Users/Campaigns :</label><br>
           <table class="table">
             <thead>
               <tr>
@@ -79,15 +76,10 @@
                 <td><button type="button" class="btn btn-success">View</button>||<button type="button" class="btn btn-danger">Remove</button></td>
               </tr>
               <tr>
-                <th scope="row">2</th>
-                <td>Campaign 02</td>
-                <td>Company 01</td>
-                <td><button type="button" class="btn btn-success">View</button>||<button type="button" class="btn btn-danger">Remove</button></td>
-              </tr>
             </tbody>
-          </table>
+          </table> -->
           
         <div>
-    </div>
+   </div>
 </body>
 </html>
