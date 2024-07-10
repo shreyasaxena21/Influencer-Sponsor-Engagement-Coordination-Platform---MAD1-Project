@@ -9,34 +9,30 @@
 </head>
 <body>
     <div id = "container">
-          <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-              <a class="navbar-brand" href="#">Sponser Dashboard</a>
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                  <li class="nav-item active">
-                    <a class="nav-link" href="#"> Profile |<span class="sr-only"></span></a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#"> Campaigns |</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#"> Find |</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#"> Stats |</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#"> Logout</a>
-                  </li>
-                </ul>
-              </div>
-            </nav>
-          </nav><br><br>
-            <label><h4>Welcome Sponser {{username}}</h4></label>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Sponser's Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="/sponser/dashboard/profile"> Profile </a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="/sponser/dashboard/campaign"> Campaigns</span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="/sponser/dashboard/find"> Find</span></a>
+            </li>            
+            <li class="nav-item active">
+              <a class="nav-link" href="#"> Stats </span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/login"> Logout</a>
+            </li>
+      </nav><br>
+            <label><h4>Welcome {{username}}</h4></label>
             <br><br>
             <label> Active Campaigns :</label>
             <br>

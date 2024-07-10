@@ -38,6 +38,7 @@ class Campaigns(db.Model):
     budget = db.Column(db.Float, nullable = False)
     visibility = db.Column(db.String, nullable = False, default="public") 
     goals = db.Column(db.Text, nullable = False)
+    niche = db.Column(db.Text, nullable = False, default = "null")
     sponser_id = db.Column(db.Integer, db.ForeignKey('sponser.id'))
     ad_request = db.relationship("Ad_request", backref="campaigns")
 

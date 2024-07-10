@@ -21,7 +21,8 @@ def user_login():
             return render_template("influencer_dashboard_profile.html", username = user.full_name)
         
         elif sponser_user:
-           return render_template("sponser_dashboard_profile.html") 
+           campaign_lists = fetch_campaign_info(sponser_user.id)
+           return render_template("sponser_dashboard_profile.html", username= sponser_user.user_name, campaigns = campaign_lists) 
         
         return render_template("login.html",  msg="Invaid Credentials!!")
    
@@ -29,6 +30,7 @@ def user_login():
        return render_template("login.html",msg="")
     
 
+#Influencer routes
 @app.route("/influencer_signup", methods=["GET","POST"]) 
 def influencer_signup():
     if request.method=="POST":
@@ -49,7 +51,7 @@ def influencer_signup():
     else:
        return render_template("influencer.html",msg="")
 
-
+#Sponser routes
 @app.route("/sponser_signup", methods=["GET","POST"]) 
 def sponser_signup():
     if request.method=="POST":
@@ -68,6 +70,47 @@ def sponser_signup():
             return render_template("sponser.html", msg="User already exists!")
     else:
        return render_template("sponser.html", msg="")
+    
+
+@app.route("/add/campaigns/<int:sponser_id>", methods = ["GET", "POST"])
+def new_campaigns(sponser_id):
+    if request.method=="POST":
+        title = request.form.get("title")
+        description = request.form.get("description")
+        niche = request.form.get("niche")
+        date = request.form.get("date")
+        campaign_obj = Campaigns(name = title, description=description, niche=niche, start_date = date, sponser_id=sponser_id )
+        db.session.add(campaign_obj)
+        db.session.commit()
+        campaign_info = fetch_campaign_info(sponser_id)
+        return render_template("sponser_dashboard_profile.html", username= campaign_info.name, campaigns = campaign_info) 
+        
+    
+
+
+
+
+
+
+
+@app.route("/sponser/dashboard/profile", methods = ["GET", "POST"])
+def sponser_dashboard_profile():
+    return render_template("sponser_dashboard_profile.html")
+
+@app.route("/sponser/dashboard/campaign", methods = ["GET", "POST"])
+def sponser_dashboard_campaign():
+    return render_template("sponser_dashboard_campaigns.html")
+
+@app.route("/sponser/dashboard/find", methods = ["GET", "POST"])
+def sponser_dashboard_find():
+    return render_template("sponser_dashboard_find.html")
+
+
+
+
+
+
+
 
 #User defined function
 def fetch_campaigns():
@@ -77,6 +120,10 @@ def fetch_campaigns():
         if campaign.id not in campaign_list.keys():
             campaign_list[campaign.id] = [campaign.name, campaign.start_date]
     return campaign_list
+
+def fetch_campaign_info(sponser_id):
+    campaign_info = Campaigns.query.filter_by(sponser_id=sponser_id).first()
+    return campaign_info
 
 
 
