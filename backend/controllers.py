@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash
 from flask import current_app as app #Alias for current running app
 from .models import *
 
@@ -21,14 +21,15 @@ def user_login():
             return render_template("influencer_dashboard_profile.html", username = user.full_name)
         
         elif sponser_user:
-           campaign_lists = fetch_campaign_info(sponser_user.id)
-           return render_template("sponser_dashboard_profile.html", username= sponser_user.user_name, campaigns = campaign_lists) 
+           sponser_info = fetch_sponser_info(sponser_user.id)
+           return render_template("sponser_dashboard_profile.html", id = sponser_info.id ,username= sponser_user.user_name, campaigns = sponser_info.campaign) 
         
-        return render_template("login.html",  msg="Invaid Credentials!!")
+        return render_template("login.html",  msg="Invalid Credentials!!")
    
     else:
        return render_template("login.html",msg="")
     
+
 
 #Influencer routes
 @app.route("/influencer_signup", methods=["GET","POST"]) 
@@ -79,19 +80,12 @@ def new_campaigns(sponser_id):
         description = request.form.get("description")
         niche = request.form.get("niche")
         date = request.form.get("date")
-        campaign_obj = Campaigns(name = title, description=description, niche=niche, start_date = date, sponser_id=sponser_id )
+        campaign_obj = Campaigns(name = title, description=description, niche=niche, start_date = date, sponser_id = id)
         db.session.add(campaign_obj)
         db.session.commit()
-        campaign_info = fetch_campaign_info(sponser_id)
-        return render_template("sponser_dashboard_profile.html", username= campaign_info.name, campaigns = campaign_info) 
+        sponser_info = fetch_sponser_info(sponser_id)
+        return render_template("sponser_dashboard_profile.html", id = sponser_info.id ,username= sponser_info.user_name, campaigns = sponser_info.campaign) 
         
-    
-
-
-
-
-
-
 
 @app.route("/sponser/dashboard/profile", methods = ["GET", "POST"])
 def sponser_dashboard_profile():
@@ -121,9 +115,9 @@ def fetch_campaigns():
             campaign_list[campaign.id] = [campaign.name, campaign.start_date]
     return campaign_list
 
-def fetch_campaign_info(sponser_id):
-    campaign_info = Campaigns.query.filter_by(sponser_id=sponser_id).first()
-    return campaign_info
+def fetch_sponser_info(id):
+    sponser_info = Sponser.query.filter_by(id=id).first()
+    return sponser_info
 
 
 
