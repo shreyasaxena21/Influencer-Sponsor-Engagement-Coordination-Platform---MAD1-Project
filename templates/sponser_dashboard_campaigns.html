@@ -6,6 +6,7 @@
     <link rel="stylesheet" href = "/static/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <title>Sponser Dashboard</title>
 </head>
 <body>
@@ -33,38 +34,38 @@
               <a class="nav-link" href="/login"> Logout</a>
             </li>
       </nav><br>
-            {%if campaigns%} 
+            {%if campaigns%}
             <div class="container">
               <div class="row">
                 {%for campaign in campaigns%}
-                <div class="col-sm">
-                  <!--Card1 in col1-->
+                <div class="col">
+                  <!--Card1 in col-1 -->
                   <div class="card" style="width: 18rem;">
-                      <div class="card-body">
-                          <h5 class="card-title">title 01</h5>
-                          <h6 class="card-subtitle mb-2 text-muted"></h6>
-                          <p class="card-text"><br><br><br><br><br><br><br></p>
-                      </div>
+                    <div class="card-body">
+                      <input type="hidden" name="campaign_id" value="{{campaign.id}}">
+                      <h5 class="card-title">Title : {{campaign.name}} </h5>
+                        <a href="#" type="button" class="btn" id="edit_button" data-bs-toggle="modal" data-bs-target="#editListModal" data-val="{{campaign.name}}#{{campaign.description}}"><img src="/static/img/icons8-edit-40.png"> </a>|
+                        <a href="#" type="button" class="btn" id="delete_button" data-bs-toggle="modal" data-bs-target="#deleteListModal" data-val="{{campaign.name}}#{{campaign.description}}"><img src="/static/img/icons8-delete-40.png">
+                      </a>
+                      <p class="card-text">Description : {{campaign.description}}</p>
+                      <a href="/sponser/dashboard/view/campaign" class="btn btn-primary">View Campaign</a>
+                    </div>
                   </div>
-                </div>
+                </div><br>
                 {%endfor%}
-                {%else%}
-                <h3>No campaigns are available for you </h3>
-                {%endif%}
-                <br><br>
+              {%else%}
+                <div><h3>No lists are available to you!</h3></div> <br><br>
+              {%endif%}
+             
+
                 <div class="d-flex justify-content-md-center">
                   <h3>Add Campaigns</h3><br><br><br>
                 </div>
-                    <div class="d-flex justify-content-md-center">
-                      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addCampaignModal" >+ New Campaign</button>
-                    </div>
-              </div>
-              
-            </div>
-              <br>
-              
-        <!--Modal dialog boxes for Campaigns-->
-      <form action="/add/campaigns/{{id}}" method= "POST" >
+                <div class="d-flex justify-content-md-center">
+                  <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addCampaignModal" >+ New Campaign</button>
+                </div>
+              <!--Modal dialog boxes for Campaigns-->
+      <form method= "POST"     action="/add_campaign"  >
         <div class="modal fade" id="addCampaignModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -75,16 +76,23 @@
               <div class="modal-body">
                 <label for="title" class="form-label">Title</label>
                 <input type="text" class="form-control" name="title" id="title">
-                <label for="decription" class="form-label">Description</label>
+                <label for="description" class="form-label">Description</label>
                 <textarea class="form-control" name="description" id="description" rows="5"></textarea>
-                <label for="image" class="form-label">Image</label>
-                <input type="text" class="form-control" name="image" id="image">
+                <label for="goals" class="form-label">Goals</label>
+                <textarea class="form-control" name="goals" id="goals" rows="2"></textarea>
+                <label for="budget" class="form-label">Budget</label>
+                <input type="number" class="form-control" name="budget" id="budget">
                 <label for="niche" class="form-label">Niche</label>
                 <input type="text" class="form-control" name="niche" id="niche">
-                <label for="date" class="form-label">Date</label>
-                <input type="date" class="form-control" name="date" id="date">
+                <label for="visibility" class="form-label">Visibility</label>
+                <input type="visibility" class="form-control" name="visibility" id="visibility">
+                <label for="start_date" class="form-label">Start Date</label>
+                <input type="text" class="form-control" name="start_date" id="start_date">
+                <label for="end_date" class="form-label">End Date</label>
+                <input type="text" class="form-control" name="end_date" id="end_date"> 
+                <label for="sponser_id" class="form-label">Sponser ID</label>
+                <input type="number" class="form-control" name="sponser_id" id="sponser_id">
 
-                
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -95,5 +103,9 @@
         </div>
       </form>
         <!--End of Modal dialog for campaigns-->
+            </div>
+              <br>
+              
+        
   </body>
 </html>

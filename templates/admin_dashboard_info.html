@@ -44,11 +44,11 @@
               </tr>
             </thead>
             <tbody>
-            {%for key, value in campaigns.items%}
+            {%for key, value in campaigns.items()%}
               <tr>
                 <th scope="row">{{key}}</th>
-                <td>{{values[0]}}</td>
-                <td>{{values[1]}}</td>
+                <td>{{value[0]}}</td>
+                <td>{{value[1]}}</td>
                 <td><button type="button" class="btn btn-success">View</button></td>
               </tr>
             {%endfor%}

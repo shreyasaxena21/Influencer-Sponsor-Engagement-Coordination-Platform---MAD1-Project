@@ -41,6 +41,7 @@
           <div class="d-flex justify-content-md-center">
             <label> Active Campaigns :</label>
           </div><br>
+          {%if campaigns%}
           <table class="table">
             <thead>
               <tr>
@@ -51,37 +52,19 @@
               </tr>
             </thead>
             <tbody>
+            {%for key, value in campaigns.items()%}
               <tr>
-                <th scope="row">1</th>
-                <td>Campaign 01</td>
-                <td>Progress 20%</td>
-                <td><button type="button" class="btn btn-warning">View</button></td>
+                <th scope="row">{{key}}</th>
+                <td>{{value[0]}}</td>
+                <td>{{value[1]}}</td>
+                <td><button type="button" class="btn btn-success">View</button></td>
               </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Campaign 02</td>
-                <td>Progress 40%</td>
-                <td><button type="button" class="btn btn-warning">View</button></td>
-              </tr>
+            {%endfor%}
             </tbody>
           </table>
-          <br>
-          <label>New Requests :</label><br>
-          <table class="table">
-              <tr>
-                <th scope="row">1</th>
-                <td>Campaign 01</td>
-                <td>Company 01</td>
-                <td><button type="button" class="btn btn-warning">View</button>||<button type="button" class="btn btn-success">Accept</button>||<button type="button" class="btn btn-danger">Reject</button></td>
-              </tr>
-              <tr>
-                <th scope="row">1</th>
-                <td>Campaign 02</td>
-                <td>Company 03</td>
-                <td><button type="button" class="btn btn-warning">View</button>||<button type="button" class="btn btn-success">Accept</button>||<button type="button" class="btn btn-danger">Reject</button></td>
-              </tr>
-            </tbody>
-          </table>
+          {%else%}
+          <h3>No Campaigns available!</h3>
+          {%endif%}
 
           
            

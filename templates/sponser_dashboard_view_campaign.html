@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href = "/static/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <title>Sponser Dashboard</title>
 </head>
 <body>
@@ -32,41 +34,18 @@
               <a class="nav-link" href="/login"> Logout</a>
             </li>
       </nav><br>
-            <label><h4>Welcome Sponser "{{username}}"  </h4></label>
-            <h5>Sponser ID : {{id}}</h5>
-            <br><br>
-            <label> Active Campaigns :</label>
-            <br>
-            {%if campaigns%}
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Campaign</th>
-                  <th scope="col">Progress</th>
-                  <th scope="col">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-              {%for key, value in campaigns.items()%}
-                <tr>
-                  <th scope="row">{{key}}</th>
-                  <td>{{value[0]}}</td>
-                  <td>{{value[1]}}</td>
-                  <td><button type="button" class="btn btn-success">View</button></td>
-                </tr>
-              {%endfor%}
-              </tbody>
-            </table>
-            {%else%}
-            <h3>No Campaigns available!</h3>
-            {%endif%}
-
-          
-           
-              
-                
-        </div>
-    </div>
-</body>
-</html>
+      <form action="/sponser/dashboard/view/campaign/{{name}}"   method="GET"> 
+      {%if campaigns%}
+            <div class="container">
+              <div class="row">
+                {%for campaign in campaigns%}
+                {%if campaign.name == name %}
+                 <h2>Title : {{campaign.name}}</h2>
+                 <h4>Goals : {{campaign.goals}}</h4>
+                 <h4>Budget : {{campaign.budget}}</h4>
+             </div>
+             {%endif%}
+            </div><br>
+            {%endfor%}
+      {%endif%}
+    </form>

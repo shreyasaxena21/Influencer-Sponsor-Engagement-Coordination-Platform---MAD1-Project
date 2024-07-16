@@ -1,34 +1,12 @@
-from flask import Flask, render_template, request, flash
+from flask import Flask, render_template, request, flash, url_for
 from flask import current_app as app #Alias for current running app
 from .models import *
+
 
 @app.route("/")#refers base url 127.0.0.1.5000 local host
 def home():
     return render_template("home.html")
 
-@app.route("/login", methods=["GET","POST"]) #it refers base url and login
-def user_login():
-    if request.method=="POST":
-        uname=request.form.get("uname")
-        pwd=request.form.get("pwd")
-        user = User.query.filter_by(user_name=uname, pwd=pwd).first() #Get existing user matched
-        sponser_user = Sponser.query.filter_by(user_name=uname, pwd=pwd).first()
-        if user and user.type == "admin" :
-           campaign_summary = fetch_campaigns() #Calling
-           return render_template("admin_dashboard_info.html", campaigns = campaign_summary )
-        
-        elif user and user.type == "general" :
-            return render_template("influencer_dashboard_profile.html", username = user.full_name)
-        
-        elif sponser_user:
-           sponser_info = fetch_sponser_info(sponser_user.id)
-           return render_template("sponser_dashboard_profile.html", id = sponser_info.id ,username= sponser_user.user_name, campaigns = sponser_info.campaign) 
-        
-        return render_template("login.html",  msg="Invalid Credentials!!")
-   
-    else:
-       return render_template("login.html",msg="")
-    
 
 
 #Influencer routes
@@ -73,27 +51,96 @@ def sponser_signup():
        return render_template("sponser.html", msg="")
     
 
-@app.route("/add/campaigns/<int:sponser_id>", methods = ["GET", "POST"])
-def new_campaigns(sponser_id):
+@app.route("/login", methods=["GET","POST"]) #it refers base url and login
+def user_login():
     if request.method=="POST":
+        uname=request.form.get("uname")
+        pwd=request.form.get("pwd")
+        user = User.query.filter_by(user_name=uname, pwd=pwd).first() #Get existing user matched
+        sponser_user = Sponser.query.filter_by(user_name=uname, pwd=pwd).first()
+        if user and user.type == "admin" :
+           campaign_summary = fetch_campaigns() #Calling
+           return render_template("admin_dashboard_info.html", campaigns = campaign_summary )
+        
+        elif user and user.type == "general" :
+            campaign_summary = fetch_campaigns()
+            return render_template("influencer_dashboard_profile.html", username = user.full_name, campaigns = campaign_summary)
+        
+        elif sponser_user:
+           campaign_summary = fetch_campaigns()
+           return render_template("sponser_dashboard_profile.html", id = sponser_user.id, username = sponser_user.user_name, campaigns=campaign_summary) 
+        
+        return render_template("login.html",  msg="Invalid Credentials!!")
+   
+    else:
+       return render_template("login.html",msg="")
+    
+    
+#User defined function
+def fetch_campaigns():
+    campaigns=Campaigns.query.filter_by(visibility = "Public" ).all()
+    campaign_list = {}
+    for campaign in campaigns:
+        if campaign.id not in campaign_list.keys():
+            campaign_list[campaign.id] = [campaign.name, campaign.start_date]
+    return campaign_list
+
+def fetch_campaign_info():
+    campaign_info = Campaigns.query.filter().all()
+    return campaign_info
+
+
+@app.route("/sponser/dashboard/campaign", methods = ["GET", "POST"])
+def sponser_dashboard_campaign():
+    if request.method == "GET":
+        campaign_info = fetch_campaign_info()
+
+        return render_template("sponser_dashboard_campaigns.html", campaigns = campaign_info)
+
+@app.route("/add_campaign", methods = ["GET", "POST"])
+def add_campaign():
+    if request.method == "POST":
         title = request.form.get("title")
         description = request.form.get("description")
+        start_date_str = request.form.get("start_date")
+        start_date = datetime.strptime(start_date_str, '%Y-%m-%d').date()
+        end_date_str = request.form.get("end_date")
+        end_date = datetime.strptime(end_date_str, '%Y-%m-%d').date()
+        budget = request.form.get("budget")
+        visibility = request.form.get("visibility")
+        goals = request.form.get("goals")
         niche = request.form.get("niche")
-        date = request.form.get("date")
-        campaign_obj = Campaigns(name = title, description=description, niche=niche, start_date = date, sponser_id = id)
+        sponser_id = request.form.get("sponser_id")
+        campaign_obj = Campaigns(name = title, description=description, budget = budget,start_date = start_date, end_date = end_date, visibility = visibility, goals = goals, niche=niche, sponser_id = sponser_id)
         db.session.add(campaign_obj)
         db.session.commit()
-        sponser_info = fetch_sponser_info(sponser_id)
-        return render_template("sponser_dashboard_profile.html", id = sponser_info.id ,username= sponser_info.user_name, campaigns = sponser_info.campaign) 
+        campaign_info = fetch_campaign_info() 
+        return render_template("sponser_dashboard_campaigns.html", campaigns = campaign_info)
+    return render_template("sponser_dashboard_profile.html")
+
+
+def fetch_campaign_name(campaign_name):
+    name = Campaigns.query.filter_by(name = campaign_name).first()
+    return name
+
+
+@app.route("/sponser/dashboard/view/campaign/<campaign_name>", methods = ["GET", "POST"])
+def sponser_dashboard_view_campaign(campaign_name):
+    if request.method == "GET":
+        campaign_name = fetch_campaign_name(campaign_name)
+        campaign_info = fetch_campaign_info()
+        return render_template("sponser_dashboard_view_campaign.html", campaigns = campaign_info, name = campaign_name)
+
+
+ 
         
 
+#Sponser Routes
 @app.route("/sponser/dashboard/profile", methods = ["GET", "POST"])
 def sponser_dashboard_profile():
     return render_template("sponser_dashboard_profile.html")
 
-@app.route("/sponser/dashboard/campaign", methods = ["GET", "POST"])
-def sponser_dashboard_campaign():
-    return render_template("sponser_dashboard_campaigns.html")
+
 
 @app.route("/sponser/dashboard/find", methods = ["GET", "POST"])
 def sponser_dashboard_find():
@@ -106,18 +153,11 @@ def sponser_dashboard_find():
 
 
 
-#User defined function
-def fetch_campaigns():
-    campaigns=Campaigns.query.filter_by(visibility = "public" ).all()
-    campaign_list = {}
-    for campaign in campaigns:
-        if campaign.id not in campaign_list.keys():
-            campaign_list[campaign.id] = [campaign.name, campaign.start_date]
-    return campaign_list
 
-def fetch_sponser_info(id):
-    sponser_info = Sponser.query.filter_by(id=id).first()
-    return sponser_info
+
+
+
+
 
 
 

@@ -5,7 +5,7 @@ db=SQLAlchemy() #Instance of SQLALchemy
 
 class User(db.Model):
     __tablename__ = "user"
-    id = db.Column(db.Integer, primary_key = True, nullable = False)
+    id = db.Column(db.Integer, primary_key = True, nullable = False, autoincrement = True)
     email = db.Column(db.String)
     full_name = db.Column(db.String, nullable = False)
     user_name = db.Column(db.String, unique = True, nullable = False)
@@ -17,7 +17,7 @@ class User(db.Model):
 
 class Sponser(db.Model):
     __tablename__ = "sponser"
-    id = db.Column(db.Integer, primary_key = True, nullable = False)
+    id = db.Column(db.Integer, primary_key = True, nullable = False, autoincrement = True)
     email = db.Column(db.String, nullable = False)
     company_name = db.Column(db.String, nullable = False)
     user_name = db.Column(db.String, unique = True, nullable = False)
@@ -26,11 +26,9 @@ class Sponser(db.Model):
     budget = db.Column(db.Float, nullable = False, default = 1000.0)
     campaign = db.relationship("Campaigns", backref="sponser")
 
-
-
 class Campaigns(db.Model):
     __tablename__ = "campaigns"
-    id = db.Column(db.Integer, primary_key = True, nullable = False)
+    id = db.Column(db.Integer, primary_key = True, nullable = False, autoincrement = True)
     name = db.Column(db.String, nullable = False)
     description = db.Column(db.Text, nullable = False)
     start_date = db.Column(db.Date, nullable = False)
@@ -45,7 +43,7 @@ class Campaigns(db.Model):
 
 class Ad_request(db.Model):
     __tablename__ = "ad_request"
-    id = db.Column(db.Integer, primary_key = True, nullable = False)
+    id = db.Column(db.Integer, primary_key = True, nullable = False, autoincrement = True)
     message =  db.Column(db.Text, nullable = False)
     payment_amount = db.Column(db.Float, nullable = False)
     requirements = db.Column(db.String, nullable = False)
