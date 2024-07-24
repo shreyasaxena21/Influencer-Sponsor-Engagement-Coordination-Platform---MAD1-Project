@@ -44,28 +44,30 @@
                     <div class="card-body">
                       <input type="hidden" name="campaign_id" value="{{campaign.id}}">
                       <h5 class="card-title">Title : {{campaign.name}} </h5>
-                        <a href="#" type="button" class="btn" id="edit_button" data-bs-toggle="modal" data-bs-target="#editListModal" data-val="{{campaign.name}}#{{campaign.description}}"><img src="/static/img/icons8-edit-40.png"> </a>|
-                        <a href="#" type="button" class="btn" id="delete_button" data-bs-toggle="modal" data-bs-target="#deleteListModal" data-val="{{campaign.name}}#{{campaign.description}}"><img src="/static/img/icons8-delete-40.png">
+                        <a href="#" type="button" class="btn" id="edit_button" data-bs-toggle="modal" data-bs-target="#editCampaignModal" data-val="{{campaign.name}}#{{campaign.description}}"><img src="/static/img/icons8-edit-40.png"> </a>|
+                        <a href="#" type="button" class="btn" id="delete_button" data-bs-toggle="modal" data-bs-target="#deleteCampaignModal" data-val="{{campaign.name}}#{{campaign.description}}"><img src="/static/img/icons8-delete-40.png">
                       </a>
                       <p class="card-text">Description : {{campaign.description}}</p>
-                      <a href="/sponser/dashboard/view/campaign" class="btn btn-primary">View Campaign</a>
+                      <a href="{{ url_for('sponser_dashboard_view_campaign', campaign_id = campaign.id) }}" class="btn btn-primary">View Campaign</a>
                     </div>
                   </div>
                 </div><br>
                 {%endfor%}
               {%else%}
-                <div><h3>No lists are available to you!</h3></div> <br><br>
+                <div><h3>No Campaigns are available to you!</h3></div> 
               {%endif%}
              
-
+                <br>
                 <div class="d-flex justify-content-md-center">
                   <h3>Add Campaigns</h3><br><br><br>
                 </div>
                 <div class="d-flex justify-content-md-center">
                   <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addCampaignModal" >+ New Campaign</button>
                 </div>
-              <!--Modal dialog boxes for Campaigns-->
-      <form method= "POST"     action="/add_campaign"  >
+
+
+  <!--Modal dialog boxes for Add Campaigns-->
+      <form method= "POST"     action="/add/campaign/{{id}}"  >
         <div class="modal fade" id="addCampaignModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -86,10 +88,10 @@
                 <input type="text" class="form-control" name="niche" id="niche">
                 <label for="visibility" class="form-label">Visibility</label>
                 <input type="visibility" class="form-control" name="visibility" id="visibility">
-                <label for="start_date" class="form-label">Start Date</label>
-                <input type="text" class="form-control" name="start_date" id="start_date">
+                <!-- <label for="start_date" class="form-label">Start Date</label>
+                <input type="text" class="form-control" name="start_date" id="start_date"> -->
                 <label for="end_date" class="form-label">End Date</label>
-                <input type="text" class="form-control" name="end_date" id="end_date"> 
+                <input type="date" class="form-control" name="end_date" id="end_date"> 
                 <label for="sponser_id" class="form-label">Sponser ID</label>
                 <input type="number" class="form-control" name="sponser_id" id="sponser_id">
 
@@ -102,10 +104,84 @@
           </div>
         </div>
       </form>
-        <!--End of Modal dialog for campaigns-->
-            </div>
-              <br>
-              
+  <!--End of Modal dialog for Add campaigns-->
+    
+  <!--Modal dialog boxes for Edit Campaigns-->
+  <form action="/edit/campaign/{{id}}" method="POST">
+    <div class="modal fade" id="editCampaignModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+  
+          <div class="modal-header">
+            <h5 class="modal-title">Edit Campaign</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          
+          <div class="modal-body">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" name="title" id="title">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" name="description" id="description" rows="5"></textarea>
+          </div>
+    
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
         
+        </div>
+      </div>
+    </div>
+    </form>
+    <script>
+      $("#editCampaignModal").on("show.bs.modal", function(event){
+        var st=$(event.relatedTarget).data('val');
+        var values=st.split('#');
+        $(this).find('#title').val(values[0]);
+        $(this).find('#description').val(values[1]);
+      });
+    </script>
+
+  <!-- End of Modal dialog boxes for Edit Campaigns -->
+
+
+  <!--Modal dialog boxes for Delete Campaigns-->
+  <form action="/delete/campaign/{{id}}" method="POST">
+    <div class="modal fade" id="deleteCampaignModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Delete Campaign?</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          
+          <div class="modal-body">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" name="title" id="title" readonly>
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" name="description" id="description" rows="5" readonly></textarea>
+          </div>
+    
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+    </form>
+  <script>
+    $("#deleteCampaignModal").on("show.bs.modal", function(event){
+        var st=$(event.relatedTarget).data('val');
+        var values=st.split('#');
+        $(this).find('#title').val(values[0]);
+        $(this).find('#description').val(values[1]);
+      });
+  </script>
+  
+  <!--End of Modal dialog boxes for Delete Campaigns-->
+
+
   </body>
 </html>

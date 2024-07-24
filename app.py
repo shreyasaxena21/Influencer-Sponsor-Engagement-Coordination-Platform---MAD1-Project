@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from backend.models import *
 
 app = None #initially none
@@ -13,6 +14,7 @@ def init_app():
     return app
 
 app=init_app()
+
 from backend.controllers import *
 if __name__ == "__main__":
     app.run()
