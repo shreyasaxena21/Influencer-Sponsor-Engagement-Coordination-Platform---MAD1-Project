@@ -13,6 +13,7 @@ class User(db.Model):
     pwd = db.Column(db.String, nullable = False)
     category = db.Column(db.String, nullable = False, default="null")
     niche = db.Column(db.String, nullable = False, default="null")
+    followers = db.Column(db.Integer, nullable=False)
     type = db.Column(db.String, nullable = False, default = "general")
     ad_request = db.relationship("Ad_request", backref="user")
 
@@ -52,6 +53,7 @@ class Ad_request(db.Model):
     payment_amount = db.Column(db.Float, nullable = False)
     requirements = db.Column(db.String, nullable = False)
     status = db.Column(db.String, nullable = False, default = "Pending")
+    visibility = db.Column(db.String, nullable = False, default="Public") 
     campaign_id = db.Column(db.Integer, db.ForeignKey("campaigns.id"))
     influencer_id = db.Column(db.Integer, db.ForeignKey("user.id"))
 

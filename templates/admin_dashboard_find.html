@@ -17,10 +17,10 @@
             <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav">
                 <li class="nav-item active">
-                  <a class="nav-link" href="#"> Info <span class="sr-only"></span></a>
+                  <a class="nav-link" href="/admin/dashboard/info"> Info <span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item active">
-                  <a class="nav-link" href="#"> Find<span class="sr-only"></span></a>
+                  <a class="nav-link" href="/admin/dashboard/find"> Find<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item active">
                   <a class="nav-link" href="#"> Stats <span class="sr-only"></span></a>
@@ -29,17 +29,46 @@
                   <a class="nav-link" href="/login"> Logout</a>
                 </li>
           </nav><br>
-          <div class="d-flex justify-content-md-center">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-info" type="submit">Filter</button>
-          </div><br><br>
+          <form action="{{ url_for('admin_search') }}" method="POST"  class="form-inline">
+            <select name = "parameter" id="parameter" class="form-select">
+              <option value="sponser">Sponsor</option>
+              <option value="campaign">Campaign</option>
+              <option value="influencer">Influencer</option>
+            </select>
+            <input type="text" class="form-control" id="search" name="'search" placeholder="Search">
+            <button type="submit" class="btn btn-primary">Search</button>
+          </form><br>
           
-          <!--Table creation-->
-          <table class="table">
+          <style>
+            form{
+              width: 100%;
+              display: flex;
+              flex-direction: row;
+              justify-content: center;
+              align-items: center;
+            }
+            #parameter{
+              margin-left: 10px;
+              margin-right: 10px;
+              width: 15%;
+            }
+            #search{
+              margin-left: 10px;
+              margin-right: 10px;
+              width: 50%;
+            }
+          </style>
+
+
+           <!-- Display search results -->
+           <label><h4>Search Results:</h4></label>
+           <table class="table">
+            
             <thead>
+              
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Influencer/Sponser Name</th>
+                <th scope="col">Influencer/Sponsor Name</th>
                 <th scope="col">Details</th>
                 <th scope="col">Action</th>
               </tr>
@@ -47,30 +76,24 @@
             <tbody>
               <tr>
                 <th scope="row">1</th>
-                <td>Influencer Name</td>
+                <td>Sponsor 01</td>
                 <td>Details</td>
                 <td><button type="button" class="btn btn-success">View</button>||<button type="button" class="btn btn-danger">Flag</button></td>
               </tr>
               <tr>
                 <th scope="row">2</th>
-                <td>Sponser Name</td>
+                <td>Influencer 01</td>
                 <td>Details</td>
                 <td><button type="button" class="btn btn-success">View</button>||<button type="button" class="btn btn-danger">Flag</button></td>
               </tr>
               <tr>
                 <th scope="row">3</th>
-                <td>Company Name</td>
-                <td>Details</td>
-                <td><button type="button" class="btn btn-success">View</button>||<button type="button" class="btn btn-danger">Flag</button></td>
-              </tr>
-              <tr>
-                <th scope="row">1</th>
-                <td>Inf Name</td>
+                <td>Campaign 01</td>
                 <td>Details</td>
                 <td><button type="button" class="btn btn-success">View</button>||<button type="button" class="btn btn-danger">Flag</button></td>
               </tr>
             </tbody>
-          </table>
+          </table> 
           
         <div>
     </div>

@@ -23,9 +23,10 @@ def influencer_signup():
         pwd=request.form.get("pwd")
         category=request.form.get("category")
         niche=request.form.get("niche")
+        followers = request.form.get("followers") 
         user = User.query.filter_by(user_name=uname).first() #Get existing user matched
         if not user:
-            new_user=User(email=email,user_name=uname, pwd=pwd, full_name=full_name,  niche=niche, category=category)
+            new_user=User(email=email,user_name=uname, pwd=pwd, full_name=full_name,  niche=niche, followers = followers, category=category)
             db.session.add(new_user)
             db.session.commit()
             return render_template("login.html", msg="")
@@ -64,11 +65,13 @@ def user_login():
         sponser_user = Sponser.query.filter_by(user_name=uname, pwd=pwd).first()
         if user and user.type == "admin" :
            campaign_summary = fetch_campaigns() #Calling
-           return render_template("admin_dashboard_info.html", campaigns = campaign_summary )
+           ad_request_summary = fetch_ad_requests()
+           return render_template("admin_dashboard_info.html", campaigns = campaign_summary , ad_requests = ad_request_summary)
         
         elif user and user.type == "general" :
             campaign_summary = fetch_campaigns()
-            return render_template("influencer_dashboard_profile.html", user_id = user.id, username = user.full_name, campaigns = campaign_summary)
+            ad_request_summary = fetch_ad_requests()
+            return render_template("influencer_dashboard_profile.html", user_id = user.id, username = user.full_name, campaigns = campaign_summary, ad_requests = ad_request_summary)
         
         elif sponser_user:
            campaign_summary = fetch_campaigns()
@@ -89,6 +92,17 @@ def fetch_campaigns():
         if campaign.id not in campaign_list.keys():
             campaign_list[campaign.id] = [campaign.name, campaign.start_date]
     return campaign_list
+
+def fetch_ad_requests():
+    ad_request = Ad_request.query.filter_by(visibility = "Public" ).all()
+    ad_request_list = {}
+    for ad in ad_request: 
+        if ad.id not in ad_request_list.keys():
+            ad_request_list[ad.id] = [ad.name, ad.status]
+    return ad_request_list
+
+
+
 
 def fetch_campaign_info():
     campaign_info = Campaigns.query.filter().all()
@@ -152,7 +166,7 @@ def edit_campaign(sponser_id):
    
 
 @app.route("/delete/campaign/<int:sponser_id>",methods=["GET","POST"])
-def delete_list(sponser_id):
+def delete_campaign(sponser_id):
     if request.method=="POST":
         title=request.form.get("title")
         campaign_obj=Campaigns.query.filter_by(sponser_id = sponser_id , name = title).first()
@@ -174,23 +188,61 @@ def sponser_dashboard_view_campaign(campaign_id):
 
  
 #Ad Request Routes
-@app.route("/add/ad_request/<int:sponser_id>", methods = ["GET", "POST"])
-def add_adrequest(sponser_id):
+@app.route("/sponser/dashboard/ad_request", methods = ["GET", "POST"])
+def sponser_dashboard_ad_request():
+    if request.method == "GET":
+        #campaign_info = get_campaign_by_id()
+        campaign_info = fetch_campaign_info()
+        
+        return render_template("sponser_dashboard_campaigns.html", campaigns = campaign_info)
+    
+@app.route("/add/ad_request", methods = ["GET", "POST"])
+def add_adrequest():
     if request.method == "POST":
         ad_name = request.form.get("ad_name")
         description = request.form.get("description")
         payment = request.form.get("payment")
         terms = request.form.get("terms")
         influencer = request.form.get("influencer")
-        ad_obj = Ad_request(name = ad_name, message = description, payment_amount = payment , requirements = terms, influencer_id = influencer)
+        campaign_id = request.form.get("campaign_id")
+        ad_obj = Ad_request(name = ad_name, message = description, payment_amount = payment , requirements = terms, influencer_id = influencer, campaign_id = campaign_id)
         db.session.add(ad_obj)
         db.session.commit()
-        sponser_info = fetch_sponser_info(sponser_id)
-        campaign_info = fetch_campaign_info() 
-        return render_template("sponser_dashboard_view_campaign.html",  id = sponser_info.id, campaigns = campaign_info)
+        #sponser_info = fetch_sponser_info(sponser_id)
+        campaign = fetch_campaign_info() 
+        return render_template("sponser_dashboard_view_campaign.html", campaigns = campaign.ad_requests)
     return render_template("sponser_dashboard_profile.html")
 
-        
+
+@app.route("/edit/ad_request", methods = ["GET", "POST"])
+def edit_ad_request():
+    if request.method=="POST":
+        ad_id = request.form.get("ad_id")
+        new_ad_name=request.form.get("ad_name")
+        new_terms = request.form.get("terms")
+        new_status = request.form.get("status")
+        new_payment = request.form.get("payment")
+        new_influencer = request.form.get("influencer")
+        ad_obj = Ad_request.query.filter_by(id = ad_id, name = new_ad_name).first()
+        ad_obj.name = new_ad_name
+        ad_obj.requirements = new_terms
+        ad_obj.status = new_status
+        ad_obj.payment_amount = new_payment
+        ad_obj.inlfluencer_id = new_influencer
+        db.session.commit()
+        campaign = fetch_campaign_info() 
+        return render_template("sponser_dashboard_view_campaign.html", campaigns = campaign.ad_requests)
+    
+@app.route("/delete/ad_request",methods=["GET","POST"])
+def delete_ad_request():
+    if request.method=="POST":
+        ad_name=request.form.get("ad_name")
+        campaign_obj=Campaigns.query.filter_by(name = ad_name).first()
+        db.session.delete(campaign_obj)
+        db.session.commit()
+        campaign = fetch_campaign_info() 
+        return render_template("sponser_dashboard_view_campaign.html", campaigns = campaign.ad_requests)
+
 
 #Sponser Routes
 @app.route("/sponser/dashboard/profile", methods = ["GET", "POST"])
@@ -203,6 +255,45 @@ def sponser_dashboard_profile():
 def sponser_dashboard_find():
     return render_template("sponser_dashboard_find.html")
 
+
+
+
+#admin routes
+@app.route("/admin/dashboard/info")
+def admin_dashboard_info():
+    return render_template("admin_dashboard_info.html")
+
+@app.route("/admin/dashboard/find")
+def admin_dashboard_find():
+    return render_template("admin_dashboard_find.html")
+
+#user defined function for searching
+def search_database(query):
+    results = []
+
+    # Search campaigns
+    campaigns = Campaigns.query.filter(Campaigns.name.ilike(f'%{query}%')).all()
+    for campaign in campaigns:
+        results.append(f"Campaign: {campaign.name}")
+
+    # Search influencers
+    influencers = User.query.filter(User.user_name.ilike(f'%{query}%')).all()
+    for influencer in influencers:
+        results.append(f"Influencer: {influencer.name}")
+
+    # Search sponsors
+    sponsors = Sponser.query.filter(Sponser.user_name.ilike(f'%{query}%')).all()
+    for sponsor in sponsors:
+        results.append(f"Sponsor: {sponsor.name}")
+
+    return results
+
+
+@app.route('/admin/search', methods=["POST"])
+def admin_search():
+    query = request.args.get('query')
+    search_results = search_database(query)
+    return render_template('admin_dashboard_find.html', search_results = search_results)
 
 
 

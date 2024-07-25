@@ -29,7 +29,7 @@
             <a class="nav-link" href="/login"> Logout</a>
           </li>
     </nav><br>
-    <div class="card" style="width: 18rem;" >
+    <div id="card" class="card" style="width: 18rem;" >
             <div class="card-body">
               <h5 class="card-title">Profile Picture</h5>
               <p class="card-text"><br><br><br></p>
@@ -38,9 +38,9 @@
           <div class="d-flex justify-content-md-center">
             <label><h5>Welcome {{username}}</h5></label>
           </div><br>
-          <div class="d-flex justify-content-md-center">
-            <label> Active Campaigns :</label>
-          </div><br>
+
+          
+          <label><h5>Active Campaigns :</h5></label><br>
           {%if campaigns%}
           <table class="table">
             <thead>
@@ -64,6 +64,32 @@
           </table>
           {%else%}
           <h3>No Campaigns available!</h3>
+          {%endif%}<br>
+
+          <label><h5>New Ad-Requests :</h5></label><br>
+          {%if ad_requests%}
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Ad-Name</th>
+                <th scope="col">Status</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+            {%for key, value in ad_requests.items()%}
+              <tr>
+                <th scope="row">{{key}}</th>
+                <td>{{value[0]}}</td>
+                <td>{{value[1]}}</td>
+                <td><button type="button" class="btn btn-warning">View</button>|<button type="button" class="btn btn-success">Accept</button>|<button type="button" class="btn btn-danger">Reject</button></td>
+              </tr>
+            {%endfor%}
+            </tbody>
+          </table>
+          {%else%}
+          <h3>No Ad-Request available!</h3>
           {%endif%}
 
           
