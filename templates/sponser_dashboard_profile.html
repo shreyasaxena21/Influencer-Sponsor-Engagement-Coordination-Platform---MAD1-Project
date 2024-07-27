@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href = "/static/style.css">
+    <link rel="stylesheet" href = "/static/dashboardstyle.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>Sponser Dashboard</title>
 </head>
 <body>
-    <div id = "container">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Sponser's Dashboard</a>
+    <div id = "container-sponser">
+      <nav class="navbar navbar-expand-lg navbar-light" style="background-color: khaki;">
+        <a class="navbar-brand" href="#">Sponsor</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -32,34 +32,34 @@
               <a class="nav-link" href="/login"> Logout</a>
             </li>
       </nav><br>
-            <label><h4>Welcome Sponsor "{{username}}"  </h4></label>
+            <label><h4 style="font-family: 'Times New Roman', Times, serif;">Welcome Sponsor "{{username}}"  </h4></label>
             <!-- <h5>Sponsor ID : {{id}}</h5> -->
             <br><br>
-            <label> Active Campaigns :</label>
+            <label><h5 style="font-family: 'Times New Roman', Times, serif;"> Active Campaigns :</h5></label>
             <br>
             {%if campaigns%}
             <table class="table">
               <thead>
                 <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Campaign</th>
-                  <th scope="col">Progress</th>
-                  <th scope="col">Action</th>
+                  <th scope="col">*</th>
+                  <th scope="col" style="font-family: 'Times New Roman', Times, serif;">Campaign</th>
+                  <th scope="col" style="font-family: 'Times New Roman', Times, serif;">Progress</th>
+                  <th scope="col" style="font-family: 'Times New Roman', Times, serif;">Action</th>
                 </tr>
               </thead>
               <tbody>
               {%for key, value in campaigns.items()%}
                 <tr>
-                  <th scope="row">{{key}}</th>
-                  <td>{{value[0]}}</td>
-                  <td>{{value[1]}}</td>
+                  <th scope="row" style="font-family: 'Times New Roman', Times, serif;">{{key}}</th>
+                  <td style="font-family: 'Times New Roman', Times, serif;">{{value[0]}}</td>
+                  <td style="font-family: 'Times New Roman', Times, serif;">{{value[1]}}</td>
                   <td><button type="button" class="btn btn-success">View</button></td>
                 </tr>
               {%endfor%}
               </tbody>
             </table>
             {%else%}
-            <h3>No Campaigns available!</h3>
+            <h3 style="font-family: 'Times New Roman', Times, serif;">No Campaigns available!</h3>
             {%endif%}
 
           <!-- <div>

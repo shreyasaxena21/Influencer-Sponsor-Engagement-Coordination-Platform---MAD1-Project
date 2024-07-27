@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href = "/static/style.css">
+    <link rel="stylesheet" href = "/static/dashboardstyle.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>Sponser Dashboard</title>
 </head>
 <body>
-    <div id = "container">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div id = "container-sponser">
+      <nav class="navbar navbar-expand-lg navbar-light" style="background-color: khaki;">
         <a class="navbar-brand" href="#">Sponser's Dashboard</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -64,23 +64,23 @@
             <table class="table">
               <thead>
                     <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Influencer Name</th>
-                      <th scope="col">Category</th>
-                      <th scope="col">Niche</th>
-                      <th scope="col">Followers</th>
-                      <th scope="col">Action</th>
+                      <th scope="col">*</th>
+                      <th scope="col" style="font-family: 'Times New Roman', Times, serif;">Influencer Name</th>
+                      <th scope="col" style="font-family: 'Times New Roman', Times, serif;">Category</th>
+                      <th scope="col" style="font-family: 'Times New Roman', Times, serif;">Niche</th>
+                      <th scope="col" style="font-family: 'Times New Roman', Times, serif;">Followers</th>
+                      <th scope="col" style="font-family: 'Times New Roman', Times, serif;">Action</th>
                     </tr>
                 </thead>
               </thead>
               <tbody>
               {%for key, value in influencers.items()%}
                 <tr>
-                  <th scope="row">{{key}}</th>
-                  <td>{{value[0]}}</td>
-                  <td>{{value[1]}}</td>
-                  <td>{{value[2]}}</td>
-                  <td>{{value[3]}} </td>
+                  <th scope="row" style="font-family: 'Times New Roman', Times, serif;">{{key}}</th>
+                  <td style="font-family: 'Times New Roman', Times, serif;">{{value[0]}}</td>
+                  <td style="font-family: 'Times New Roman', Times, serif;">{{value[1]}}</td>
+                  <td style="font-family: 'Times New Roman', Times, serif;">{{value[2]}}</td>
+                  <td style="font-family: 'Times New Roman', Times, serif;">{{value[3]}} </td>
 
                   <td><button type="button" class="btn btn-warning">View</button>|<button type="button" class="btn btn-success">Request</button></td>
                 </tr>
@@ -88,7 +88,7 @@
               </tbody>
             </table>
             {%else%}
-            <h3>No Campaigns available!</h3>
+            <h3 style="font-family: 'Times New Roman', Times, serif;">No Campaigns available!</h3>
             {%endif%}<br>
           </div>
         <div>

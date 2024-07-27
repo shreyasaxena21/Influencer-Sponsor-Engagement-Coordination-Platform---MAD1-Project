@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href = "/static/style.css">
+    <link rel="stylesheet" href = "/static/dashboardstyle.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>Influencer Dashboard</title>
 </head>
 <body>
-  <div id="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div id="container-influencer">
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color:khaki;">
       <a class="navbar-brand" href="#">Influencer's Dashboard</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -29,77 +29,75 @@
             <a class="nav-link" href="/login"> Logout</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" > <strong>{{username}}</strong></a>
+            <a class="nav-link" href="/edit/profile/influencer" > <strong>{{username}}</strong></a>
           </li>
           
     </nav><br>
-    <!-- <div id="card" class="card" style="width: 18rem;" >
-            <div class="card-body">
-              <h5 class="card-title">Profile Picture</h5>
-              <p class="card-text"><br><br><br></p>
+      
+            <div class="d-flex justify-content-md-center">
+              <label><h3 style="font-family: 'Times New Roman', Times, serif;">Welcome {{username}}</h3></label>
             </div>
-          </div> -->
-          <div class="d-flex justify-content-md-center">
-            <label><h5>Welcome {{username}}</h5></label>
-          </div>
-          <div class="d-flex justify-content-md-center">
-            <label><h5>Earnings this months $500</h5></label>
-          </div>
-
+            <div class="d-flex justify-content-md-center">
+              <label><h5 style="font-family: 'Times New Roman', Times, serif;">Earnings this months $500</h5></label>
+            </div>
           
-          <label><h5>Active Campaigns :</h5></label><br>
-          {%if campaigns%}
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Campaign</th>
-                <th scope="col">Progress</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-            {%for key, value in campaigns.items()%}
-              <tr>
-                <th scope="row">{{key}}</th>
-                <td>{{value[0]}}</td>
-                <td>{{value[1]}}</td>
-                <td><button type="button" class="btn btn-success">View</button></td>
-              </tr>
-            {%endfor%}
-            </tbody>
-          </table>
-          {%else%}
-          <h3>No Campaigns available!</h3>
-          {%endif%}<br>
-
-          <label><h5>New Requests :</h5></label><br>
-          {%if ad_requests%}
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Ad-Name</th>
-                <th scope="col">Status</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-            {%for key, value in ad_requests.items()%}
-              <tr>
-                <th scope="row">{{key}}</th>
-                <td>{{value[0]}}</td>
-                <td>{{value[1]}}</td>
-                <td><button type="button" class="btn btn-warning">View</button>|<button type="button" class="btn btn-success">Accept</button>|<button type="button" class="btn btn-danger">Reject</button></td>
-              </tr>
-            {%endfor%}
-            </tbody>
-          </table>
-          {%else%}
-          <h3>No Ad-Request available!</h3>
-          {%endif%}
-
           
+          <div id="campaign">
+            <label><h5 style="font-family: 'Times New Roman', Times, serif;">Active Campaigns :</h5></label><br>
+            {%if campaigns%}
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">*</th>
+                  <th scope="col" style="font-family: 'Times New Roman', Times, serif;">Campaign</th>
+                  <th scope="col" style="font-family: 'Times New Roman', Times, serif;">Progress</th>
+                  <th scope="col" style="font-family: 'Times New Roman', Times, serif;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+              {%for key, value in campaigns.items()%}
+                <tr>
+                  <th scope="row">{{key}}</th>
+                  <td style="font-family: 'Times New Roman', Times, serif;">{{value[0]}}</td>
+                  <td style="font-family: 'Times New Roman', Times, serif;">{{value[1]}}</td>
+                  <td><button type="button" class="btn btn-success">View</button></td>
+                </tr>
+              {%endfor%}
+              </tbody>
+            </table>
+            {%else%}
+            <h3>No Campaigns available!</h3>
+            {%endif%}<br>
+          </div><br>
+
+          <div id="request">
+            <label><h5 style="font-family: 'Times New Roman', Times, serif;">New Requests :</h5></label><br>
+            {%if ad_requests%}
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">*</th>
+                  <th scope="col" style="font-family: 'Times New Roman', Times, serif;">Ad-Name</th>
+                  <th scope="col" style="font-family: 'Times New Roman', Times, serif;">Status</th>
+                  <th scope="col" style="font-family: 'Times New Roman', Times, serif;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+              {%for key, value in ad_requests.items()%}
+                <tr>
+                  <th scope="row">{{key}}</th>
+                  <td style="font-family: 'Times New Roman', Times, serif;">{{value[0]}}</td>
+                  <td style="font-family: 'Times New Roman', Times, serif;">{{value[1]}}</td>
+                  <td><button type="button" class="btn btn-warning">View</button>|<button type="button" class="btn btn-success">Accept</button>|<button type="button" class="btn btn-danger">Reject</button></td>
+                </tr>
+              {%endfor%}
+              </tbody>
+            </table>
+            {%else%}
+            <h3 style="font-family: 'Times New Roman', Times, serif;">No Ad-Request available!</h3>
+            {%endif%}
+            
+          </div>
            
               
                 

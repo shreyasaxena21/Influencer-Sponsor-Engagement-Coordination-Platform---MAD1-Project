@@ -11,7 +11,7 @@
 </head>
 <body>
     <div id = "container">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <nav class="navbar navbar-expand-lg navbar-light" style="background-color: khaki;">
         <a class="navbar-brand" href="#">Sponser's Dashboard</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -61,11 +61,11 @@
       <div class="card" style="width: 20rem;">
         <div class="card-body">
           <input type="hidden" name="ad_request_id" value="{{ad.id}}">
-          <h5 class="card-title">Ad Name : {{ad.name}} </h5>
+          <h5 style="font-family: 'Times New Roman', Times, serif;" class="card-title">Ad Name : {{ad.name}} </h5>
             <a href="#" type="button" class="btn" id="edit_button" data-bs-toggle="modal" data-bs-target="#editAdRequestModal" data-val="{{ad.name}}#{{ad.description}}#{{ad.requirements}}#{{ad.payment_amount}}#{{ad.status}}#{{ad.influencer_id}}"><img src="/static/img/icons8-edit-40.png"> </a>|
             <a href="#" type="button" class="btn" id="delete_button" data-bs-toggle="modal" data-bs-target="#deleteAdRequestModal" data-val="{{ad.name}}#{{ad.description}}#{{ad.requirements}}#{{ad.payment_amount}}#{{ad.status}}#{{ad.influencer_id}}"><img src="/static/img/icons8-delete-40.png">
           </a>
-          <p class="card-text">Description : {{ad.message}}</p>
+          <p style="font-family: 'Times New Roman', Times, serif;" class="card-text">Description : {{ad.message}}</p>
           <a href="#" ></a>
         </div>
       </div>
@@ -81,7 +81,7 @@
 
   <br>
           <div class="d-flex justify-content-md-center">
-            <h3>Add Ad-Request</h3><br><br><br>
+            <h3 style="font-family: 'Times New Roman', Times, serif;">Add Ad-Request</h3><br><br><br>
           </div>
           <div class="d-flex justify-content-md-center">
             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addAdRequestModal" >+ Create Ad-Request</button>

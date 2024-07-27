@@ -120,6 +120,10 @@ def fetch_sponser_info(id):
     sponser_info = Sponser.query.filter_by(id=id).first()
     return sponser_info
 
+def fetch_influencer_info(id):
+    influencer_info = User.query.filter_by(id=id).first()
+    return influencer_info
+
 # def fetch_campaign_id(id):
 #     camp_id = Campaigns.query.filter_by(sponser_id = id)
 #     return camp_id
@@ -306,6 +310,19 @@ def text_search():
     c_niche = Campaigns.query.filter(Campaigns.niche.like(search_niche)).all()
     search_results = c_names + c_niche
     return render_template('influencer_search.html', search_results = search_results)
+
+@app.route('/edit/profile/influencer', methods=["GET", "POST"])
+def edit_influencer_profile():
+    if request.method=="POST":
+        new_user_name = request.form.get("user_name")
+        new_password = request.form.get("password")
+        user_obj = User.query.filter(user_name = new_user_name).first()
+        user_obj.user_name = new_user_name
+        user_obj.password = new_password
+        # influencer = fetch_influencer_info(id)
+        db.commit()
+        return render_template("edit_influencer_profile.html", user_name = user_obj.user_name, username = user_obj.name)
+    return render_template("influencer_dashboard_profile.html")
 
 
 #admin routes

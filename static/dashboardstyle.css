@@ -1,0 +1,62 @@
+*{
+    margin: 0%;
+    padding: 0%;
+}
+
+#container-influencer{
+    border: 2px solid black;
+    padding: 10px;
+    
+}
+
+#container-influencer-find{
+    border: 2px solid black;
+    padding: 10px;
+    height: 640px;
+}
+
+#container-influencer-edit{
+    border: 2px solid black;
+    padding: 10px;
+    height: 640px;
+}
+
+
+#campaign{
+    border: 3px solid black ;
+    padding: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    
+
+}
+
+#request{
+    border: 3px solid black ;
+    padding: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+#flagged{
+    border: 3px solid black ;
+    padding: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+
+#container-sponser{
+    border: 2px solid black;
+    padding: 10px;
+    height: 700px;
+}
+
+#container-admin{
+    border: 2px solid black;
+    padding: 10px;
+    height: 900px;
+}
+
+#main{
+    padding: 20px;
+}
