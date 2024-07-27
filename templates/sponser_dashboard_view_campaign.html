@@ -58,7 +58,7 @@
         {%for ad in camp.ad_requests%}
     <div class="col">
       <!-- Card1 in col-1 -->
-      <div class="card" style="width: 18rem;">
+      <div class="card" style="width: 20rem;">
         <div class="card-body">
           <input type="hidden" name="ad_request_id" value="{{ad.id}}">
           <h5 class="card-title">Ad Name : {{ad.name}} </h5>
@@ -113,8 +113,6 @@
       <input type="number" class="form-control" name="influencer" id="influencer">
       <label for="campaign_id" class="form-label">Campaign ID</label>
       <input type="number" class="form-control" name="campaign_id" id="campaign_id">
-      <label for="ad_id" class="form-label">Ad ID</label>
-      <input type="number" class="form-control" name="ad_id" id="ad_id">
       
     </div>
     <div class="modal-footer" >

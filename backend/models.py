@@ -7,13 +7,14 @@ db=SQLAlchemy() #Instance of SQLALchemy
 class User(db.Model):
     __tablename__ = "user"
     id = db.Column(db.Integer, primary_key = True, nullable = False, autoincrement = True)
-    email = db.Column(db.String)
+    email = db.Column(db.String, nullable = False)
     full_name = db.Column(db.String, nullable = False)
+    search_name = db.Column(db.String, nullable = False)
     user_name = db.Column(db.String, unique = True, nullable = False)
     pwd = db.Column(db.String, nullable = False)
     category = db.Column(db.String, nullable = False, default="null")
     niche = db.Column(db.String, nullable = False, default="null")
-    followers = db.Column(db.Integer, nullable=False)
+    followers = db.Column(db.Integer, nullable=False, default = 0)
     type = db.Column(db.String, nullable = False, default = "general")
     ad_request = db.relationship("Ad_request", backref="user")
 
@@ -24,6 +25,7 @@ class Sponser(db.Model):
     id = db.Column(db.Integer, primary_key = True, nullable = False, autoincrement = True)
     email = db.Column(db.String, nullable = False)
     company_name = db.Column(db.String, nullable = False)
+    search_name = db.Column(db.String, nullable = False)
     user_name = db.Column(db.String, unique = True, nullable = False)
     pwd = db.Column(db.String, nullable = False)
     industry = db.Column(db.String, nullable = False)
@@ -34,6 +36,7 @@ class Campaigns(db.Model):
     __tablename__ = "campaigns"
     id = db.Column(db.Integer, primary_key = True, nullable = False, autoincrement = True)
     name = db.Column(db.String, nullable = False)
+    search_name = db.Column(db.String, nullable = False)
     description = db.Column(db.Text, nullable = False)
     start_date = db.Column(db.String, nullable = False)
     end_date = db.Column(db.String, nullable = False)
@@ -41,7 +44,7 @@ class Campaigns(db.Model):
     visibility = db.Column(db.String, nullable = False, default="public") 
     goals = db.Column(db.Text, nullable = False)
     niche = db.Column(db.Text, nullable = False, default = "null")
-    sponser_id = db.Column(db.Integer, db.ForeignKey("sponser.id"))
+    sponser_id = db.Column(db.Integer, db.ForeignKey("sponser.id"), nullable = False)
     ad_requests = db.relationship("Ad_request", backref="campaigns")
 
 
@@ -54,8 +57,8 @@ class Ad_request(db.Model):
     requirements = db.Column(db.String, nullable = False)
     status = db.Column(db.String, nullable = False, default = "Pending")
     visibility = db.Column(db.String, nullable = False, default="Public") 
-    campaign_id = db.Column(db.Integer, db.ForeignKey("campaigns.id"))
-    influencer_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    campaign_id = db.Column(db.Integer, db.ForeignKey("campaigns.id"), nullable = False)
+    influencer_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable = False)
 
 
 

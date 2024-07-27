@@ -5,22 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href = "/static/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Influencer Dashboard</title>
+    <title>Sponsor Dashboard</title>
 </head>
 <body>
     <div id = "container">
           <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">Influencer's Dashboard</a>
+            <a class="navbar-brand" href="#">Sponsor's Dashboard</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav">
                 <li class="nav-item active">
-                  <a class="nav-link" href="/influencer/dashboard/profile"> Profile </a>
+                  <a class="nav-link" href="/sponser/dashboard/profile"> Profile </a>
                 </li>
                 <li class="nav-item active">
-                  <a class="nav-link" href="/influencer/dashboard/find"> Find</a>
+                  <a class="nav-link" href="/sponser/dashboard/find"> Find</a>
                 </li>
                 <li class="nav-item active">
                   <a class="nav-link" href="#"> Stats</span></a>
@@ -29,66 +29,36 @@
                   <a class="nav-link" href="/login"> Logout</a>
                 </li>
           </nav><br>
-          <form action="/influencer/search"  class="form-inline">
-            <input type="text" class="form-control" id="search" name="search_word" placeholder="Search campaigns on the basis of name/niche etc">
-            <button type="submit" class="btn btn-primary">Search</button>
-          </form><br>
-          
-          <style>
-            form{
-              width: 100%;
-              display: flex;
-              flex-direction: row;
-              justify-content: center;
-              align-items: center;
-            }
-            #parameter{
-              margin-left: 10px;
-              margin-right: 10px;
-              width: 15%;
-            }
-            #search{
-              margin-left: 10px;
-              margin-right: 10px;
-              width: 50%;
-            }
-          </style>
 
-          
-          <!--Table creation-->
-          {%if campaigns%}
+          <label><h4>Search Results:</h4></label>
+
+          {%if search_results|length == 0 %}
+          <h3>No Influencers available!</h3>
+          {%else%}
           <table class="table">
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Campaign</th>
-                <th scope="col">Start Date</th>
-                <th scope="col">End Date</th>
-                <th scope="col">Budget</th>
+                <th scope="col">Influencer Name</th>
+                <th scope="col">Category</th>
                 <th scope="col">Niche</th>
+                <th scope="col">Followers</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
-            {%for key, value in campaigns.items()%}
+            {%for influencer in search_results %}
               <tr>
-                <th scope="row">{{key}}</th>
-                <td>{{value[0]}}</td>
-                <td>{{value[1]}}</td>
-                <td>{{value[2]}}</td>
-                <td>${{value[3]}}</td>
-                <td>{{value[4]}}</td>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{influencer.full_name}}</td>
+                <td>{{influencer.category}}</td>
+                <td>{{influencer.niche}}</td>
+                <td>{{influencer.followers}}</td>
 
                 <td><button type="button" class="btn btn-warning">View</button>|<button type="button" class="btn btn-success">Request</button></td>
               </tr>
             {%endfor%}
             </tbody>
-          </table>
-          {%else%}
-          <h3>No Campaigns available!</h3>
-          {%endif%}<br>
+        </table>
           
-        <div>
-    </div>
-</body>
-</html>
+          {%endif%}<br>

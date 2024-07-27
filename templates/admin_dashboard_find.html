@@ -29,13 +29,8 @@
                   <a class="nav-link" href="/login"> Logout</a>
                 </li>
           </nav><br>
-          <form action="{{ url_for('admin_search') }}" method="POST"  class="form-inline">
-            <select name = "parameter" id="parameter" class="form-select">
-              <option value="sponser">Sponsor</option>
-              <option value="campaign">Campaign</option>
-              <option value="influencer">Influencer</option>
-            </select>
-            <input type="text" class="form-control" id="search" name="'search" placeholder="Search">
+          <form action="/admin/search"  class="form-inline">
+            <input type="text" class="form-control" id="search" name="search_word" placeholder="Search Sponsors and Influencers">
             <button type="submit" class="btn btn-primary">Search</button>
           </form><br>
           

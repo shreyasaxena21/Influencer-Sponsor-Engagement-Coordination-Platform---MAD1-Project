@@ -32,40 +32,65 @@
               <a class="nav-link" href="/login"> Logout</a>
             </li>
       </nav><br>
-          <div class="d-flex justify-content-md-center">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-info" type="submit">Filter</button>
-          </div><br><br>
+
+          <form action="/sponser/search"  class="form-inline">
+            <input type="text" class="form-control" id="search" name="search_word" placeholder="Search Influencers on the basis of name/niche/followers etc">
+            <button type="submit" class="btn btn-primary">Search</button>
+          </form><br>
           
+          <style>
+            form{
+              width: 100%;
+              display: flex;
+              flex-direction: row;
+              justify-content: center;
+              align-items: center;
+            }
+            #parameter{
+              margin-left: 10px;
+              margin-right: 10px;
+              width: 15%;
+            }
+            #search{
+              margin-left: 10px;
+              margin-right: 10px;
+              width: 50%;
+            }
+          </style>
+
           <!--Table creation-->
-          <table class="table">
-              <tr>
-                <th scope="row">1</th>
-                <td>Campaign Name</td>
-                <td>Details</td>
-                <td><button type="button" class="btn btn-warning">View</button>||<button type="button" class="btn btn-success">Request</button></td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Campaign Name</td>
-                <td>Details</td>
-                <td><button type="button" class="btn btn-warning">View</button>||<button type="button" class="btn btn-success">Request</button></td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Influencer1 Name</td>
-                <td>Details</td>
-                <td><button type="button" class="btn btn-warning">View</button>||<button type="button" class="btn btn-success">Request</button></td>
-              </tr>
-              <tr>
-                <th scope="row">4</th>
-                <td>influencer2 Name</td>
-                <td>Details</td>
-                <td><button type="button" class="btn btn-warning">View</button>||<button type="button" class="btn btn-success">Request</button></td>
-              </tr>
-            </tbody>
-          </table>
-          
+          <div class="justify-content-center">
+            {%if influencers %}
+            <table class="table">
+              <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Influencer Name</th>
+                      <th scope="col">Category</th>
+                      <th scope="col">Niche</th>
+                      <th scope="col">Followers</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                </thead>
+              </thead>
+              <tbody>
+              {%for key, value in influencers.items()%}
+                <tr>
+                  <th scope="row">{{key}}</th>
+                  <td>{{value[0]}}</td>
+                  <td>{{value[1]}}</td>
+                  <td>{{value[2]}}</td>
+                  <td>{{value[3]}} </td>
+
+                  <td><button type="button" class="btn btn-warning">View</button>|<button type="button" class="btn btn-success">Request</button></td>
+                </tr>
+              {%endfor%}
+              </tbody>
+            </table>
+            {%else%}
+            <h3>No Campaigns available!</h3>
+            {%endif%}<br>
+          </div>
         <div>
     </div>
 </body>

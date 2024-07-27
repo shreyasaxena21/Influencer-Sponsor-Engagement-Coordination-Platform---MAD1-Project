@@ -26,7 +26,7 @@ def influencer_signup():
         followers = request.form.get("followers") 
         user = User.query.filter_by(user_name=uname).first() #Get existing user matched
         if not user:
-            new_user=User(email=email,user_name=uname, pwd=pwd, full_name=full_name,  niche=niche, followers = followers, category=category)
+            new_user=User(email=email,user_name=uname, search_name = raw(full_name), pwd=pwd, full_name=full_name,  niche=niche, followers = followers, category=category)
             db.session.add(new_user)
             db.session.commit()
             return render_template("login.html", msg="")
@@ -46,7 +46,7 @@ def sponser_signup():
         indus=request.form.get("indus")
         user = Sponser.query.filter_by(user_name=uname).first() #Get existing user matched
         if not user:
-            new_user=Sponser(email=email,user_name=uname, pwd=pwd, industry =indus, company_name=company_name)
+            new_user=Sponser(email=email,user_name=uname, search_name = uname , pwd=pwd, industry =indus, company_name=company_name)
             db.session.add(new_user)
             db.session.commit()
             return render_template("login.html", msg="")
@@ -90,7 +90,7 @@ def fetch_campaigns():
     campaign_list = {}
     for campaign in campaigns: 
         if campaign.id not in campaign_list.keys():
-            campaign_list[campaign.id] = [campaign.name, campaign.start_date]
+            campaign_list[campaign.id] = [campaign.name, campaign.start_date, campaign.end_date, campaign.budget, campaign.niche]
     return campaign_list
 
 def fetch_ad_requests():
@@ -100,6 +100,14 @@ def fetch_ad_requests():
         if ad.id not in ad_request_list.keys():
             ad_request_list[ad.id] = [ad.name, ad.status]
     return ad_request_list
+
+def fetch_influencers():
+    influencer = User.query.filter_by(type = 'general' ).all()
+    influencer_list = {}
+    for user in influencer: 
+        if user.id not in influencer_list.keys():
+            influencer_list[user.id] = [user.full_name, user.category, user.niche, user.followers]
+    return influencer_list
 
 
 
@@ -119,6 +127,13 @@ def fetch_sponser_info(id):
 def get_campaign_by_id(campaign_id):
     return Campaigns.query.get(campaign_id)
 
+def raw(text): #to convert the searched word to raw string
+    split_list = text.split() #converts to a list
+    search_word = ''
+    for word in split_list:
+        search_word += word.lower()
+    return search_word
+
 
 #campaign routes
 @app.route("/sponser/dashboard/campaign/<int:sponser_id>", methods = ["GET", "POST"])
@@ -135,15 +150,15 @@ def add_campaign(sponser_id):
         title = request.form.get("title")
         description = request.form.get("description")
         #start_date_str = request.form.get("start_date")
-        start_date = str(datetime.date.today().strftime("%d/%m%Y"))
+        start_date = str(datetime.date.today().strftime("%d/%m/%Y"))
         end_date = request.form.get("end_date")
-        #end_date = datetime.strptime(end_date_str, '%Y-%m-%d').date()
+        #end_date = datetime.strptime(end_date_str, '%d/%m/%Y').date()
         budget = request.form.get("budget")
         visibility = request.form.get("visibility")
         goals = request.form.get("goals")
         niche = request.form.get("niche")
         sponser_id = request.form.get("sponser_id")
-        campaign_obj = Campaigns(name = title, description=description, budget = budget,start_date = start_date, end_date = end_date, visibility = visibility, goals = goals, niche=niche, sponser_id = sponser_id)
+        campaign_obj = Campaigns(name = title, search_name = raw(title) , description=description, budget = budget,start_date = start_date, end_date = end_date, visibility = visibility, goals = goals, niche=niche, sponser_id = sponser_id)
         db.session.add(campaign_obj)
         db.session.commit()
         sponser_info = fetch_sponser_info(sponser_id)
@@ -173,7 +188,7 @@ def delete_campaign(sponser_id):
         db.session.delete(campaign_obj)
         db.session.commit()
         sponser_info = fetch_sponser_info(sponser_id)
-        return render_template("sponser_dashboard_campaigns.html",id=sponser_info.id, campaigns = sponser_info.campaigns)
+        return render_template("sponser_dashboard_campaigns.html",id = sponser_info.id, campaigns = sponser_info.campaigns)
 
 
 
@@ -188,7 +203,7 @@ def sponser_dashboard_view_campaign(campaign_id):
 
  
 #Ad Request Routes
-@app.route("/sponser/dashboard/ad_request", methods = ["GET", "POST"])
+@app.route("/sponser/dashboard/ad_request", methods = ["GET"])
 def sponser_dashboard_ad_request():
     if request.method == "GET":
         #campaign_info = get_campaign_by_id()
@@ -237,7 +252,7 @@ def edit_ad_request():
 def delete_ad_request():
     if request.method=="POST":
         ad_name=request.form.get("ad_name")
-        campaign_obj=Campaigns.query.filter_by(name = ad_name).first()
+        campaign_obj=Ad_request.query.filter_by(name = ad_name).first()
         db.session.delete(campaign_obj)
         db.session.commit()
         campaign = fetch_campaign_info() 
@@ -253,9 +268,44 @@ def sponser_dashboard_profile():
 
 @app.route("/sponser/dashboard/find", methods = ["GET", "POST"])
 def sponser_dashboard_find():
-    return render_template("sponser_dashboard_find.html")
+    influencers = fetch_influencers()
+    return render_template("sponser_dashboard_find.html", influencers = influencers)
+
+@app.route('/sponser/search', methods=["GET"])
+def text_search_sponser():
+    search_word = request.args.get('search_word')
+    search_word = "%" + raw(search_word) + "%"
+    search_niche = "%" + search_word.lower() + "%"
+    search_followers = "%" + raw(search_word) + "%"
+    i_names = User.query.filter(User.search_name.like(search_word)).all()
+    i_niche = User.query.filter(User.niche.like(search_niche)).all()
+    i_followers = User.query.filter(User.followers.like(search_followers)).all()
+    search_results = i_names + i_niche + i_followers
+    return render_template('sponser_search.html', search_results = search_results)
 
 
+
+
+#influencer routes
+@app.route("/influencer/dashboard/find")
+def influencer_dashboard_find():
+    campaign_summary = fetch_campaigns()
+    return render_template("influencer_dashboard_find.html", campaigns = campaign_summary)
+
+@app.route("/influencer/dashboard/profile")
+def influencer_dashboard_profile():
+    return render_template("influencer_dashboard_profile.html")
+
+
+@app.route('/influencer/search', methods=["GET"])
+def text_search():
+    search_word = request.args.get('search_word')
+    search_word = "%" + raw(search_word) + "%"
+    search_niche = "%" + search_word.lower() + "%"
+    c_names = Campaigns.query.filter(Campaigns.search_name.like(search_word)).all()
+    c_niche = Campaigns.query.filter(Campaigns.niche.like(search_niche)).all()
+    search_results = c_names + c_niche
+    return render_template('influencer_search.html', search_results = search_results)
 
 
 #admin routes
@@ -267,33 +317,27 @@ def admin_dashboard_info():
 def admin_dashboard_find():
     return render_template("admin_dashboard_find.html")
 
-#user defined function for searching
-def search_database(query):
-    results = []
+@app.route('/admin/search', methods=["GET"])
+def admin_influencer_text_search():
+    search_word = request.args.get('search_word')
+    search_word = "%" + raw(search_word) + "%"
+    if search_word == User.query.filter_by(search_name = search_word):
+        i_names = User.query.filter(User.search_name.like(search_word)).all()
+        search_results = i_names 
+        return render_template('admin_influencer_search.html', search_results = search_results)
+    else:
+        s_names = Sponser.query.filter(Sponser.search_name.like(search_word)).all()
+        search_results = s_names 
+        return render_template('admin_sponser_search.html', search_results = search_results)
 
-    # Search campaigns
-    campaigns = Campaigns.query.filter(Campaigns.name.ilike(f'%{query}%')).all()
-    for campaign in campaigns:
-        results.append(f"Campaign: {campaign.name}")
+    
+    
 
-    # Search influencers
-    influencers = User.query.filter(User.user_name.ilike(f'%{query}%')).all()
-    for influencer in influencers:
-        results.append(f"Influencer: {influencer.name}")
-
-    # Search sponsors
-    sponsors = Sponser.query.filter(Sponser.user_name.ilike(f'%{query}%')).all()
-    for sponsor in sponsors:
-        results.append(f"Sponsor: {sponsor.name}")
-
-    return results
-
-
-@app.route('/admin/search', methods=["POST"])
-def admin_search():
-    query = request.args.get('query')
-    search_results = search_database(query)
-    return render_template('admin_dashboard_find.html', search_results = search_results)
+# @app.route('/admin/search', methods=["POST"])
+# def admin_search():
+#     query = request.args.get('query')
+#     search_results = search_database(query)
+#     return render_template('admin_dashboard_find.html', search_results = search_results)
 
 
 

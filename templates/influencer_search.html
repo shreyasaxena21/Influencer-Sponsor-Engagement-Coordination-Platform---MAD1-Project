@@ -29,34 +29,12 @@
                   <a class="nav-link" href="/login"> Logout</a>
                 </li>
           </nav><br>
-          <form action="/influencer/search"  class="form-inline">
-            <input type="text" class="form-control" id="search" name="search_word" placeholder="Search campaigns on the basis of name/niche etc">
-            <button type="submit" class="btn btn-primary">Search</button>
-          </form><br>
-          
-          <style>
-            form{
-              width: 100%;
-              display: flex;
-              flex-direction: row;
-              justify-content: center;
-              align-items: center;
-            }
-            #parameter{
-              margin-left: 10px;
-              margin-right: 10px;
-              width: 15%;
-            }
-            #search{
-              margin-left: 10px;
-              margin-right: 10px;
-              width: 50%;
-            }
-          </style>
 
-          
-          <!--Table creation-->
-          {%if campaigns%}
+          <label><h4>Search Results:</h4></label>
+
+          {%if search_results|length == 0 %}
+          <h3>No Campaigns available!</h3>
+          {%else%}
           <table class="table">
             <thead>
               <tr>
@@ -70,25 +48,19 @@
               </tr>
             </thead>
             <tbody>
-            {%for key, value in campaigns.items()%}
+            {%for campaign in search_results %}
               <tr>
-                <th scope="row">{{key}}</th>
-                <td>{{value[0]}}</td>
-                <td>{{value[1]}}</td>
-                <td>{{value[2]}}</td>
-                <td>${{value[3]}}</td>
-                <td>{{value[4]}}</td>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{campaign.name}}</td>
+                <td>{{campaign.start_date}}</td>
+                <td>{{campaign.end_date}}</td>
+                <td>${{campaign.budget}}</td>
+                <td>{{campaign.niche}}</td>
 
                 <td><button type="button" class="btn btn-warning">View</button>|<button type="button" class="btn btn-success">Request</button></td>
               </tr>
             {%endfor%}
             </tbody>
-          </table>
-          {%else%}
-          <h3>No Campaigns available!</h3>
-          {%endif%}<br>
+        </table>
           
-        <div>
-    </div>
-</body>
-</html>
+          {%endif%}<br>
