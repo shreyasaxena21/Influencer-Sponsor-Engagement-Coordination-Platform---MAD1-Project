@@ -8,7 +8,7 @@
     <title>Influencer Dashboard</title>
 </head>
 <body>
-  <div id="container-influencer">
+  <div id="container-influencer-profile">
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color:khaki;">
       <a class="navbar-brand" href="#">Influencer's Dashboard</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,20 +29,20 @@
             <a class="nav-link" href="/login"> Logout</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/edit/profile/influencer" > <strong>{{username}}</strong></a>
+            <a class="nav-link" href="/edit/profile/page/{{influencer.id}}" > <strong>Edit Profile ({{influencer.full_name}})</strong></a>
           </li>
           
     </nav><br>
       
             <div class="d-flex justify-content-md-center">
-              <label><h3 style="font-family: 'Times New Roman', Times, serif;">Welcome {{username}}</h3></label>
+              <label><h3 style="font-family: 'Times New Roman', Times, serif;">Welcome {{influencer.full_name}}</h3></label>
             </div>
             <div class="d-flex justify-content-md-center">
               <label><h5 style="font-family: 'Times New Roman', Times, serif;">Earnings this months $500</h5></label>
             </div>
           
           
-          <div id="campaign">
+          <div >
             <label><h5 style="font-family: 'Times New Roman', Times, serif;">Active Campaigns :</h5></label><br>
             {%if campaigns%}
             <table class="table">
@@ -60,7 +60,7 @@
                   <th scope="row">{{key}}</th>
                   <td style="font-family: 'Times New Roman', Times, serif;">{{value[0]}}</td>
                   <td style="font-family: 'Times New Roman', Times, serif;">{{value[1]}}</td>
-                  <td><button type="button" class="btn btn-success">View</button></td>
+                  <td><a href="/view/campaign/influencer/{{key}}"><button type="button" class="btn btn-success">View</button></a></td>
                 </tr>
               {%endfor%}
               </tbody>
@@ -70,7 +70,7 @@
             {%endif%}<br>
           </div><br>
 
-          <div id="request">
+          <div>
             <label><h5 style="font-family: 'Times New Roman', Times, serif;">New Requests :</h5></label><br>
             {%if ad_requests%}
             <table class="table">
@@ -83,18 +83,18 @@
                 </tr>
               </thead>
               <tbody>
-              {%for key, value in ad_requests.items()%}
+              {%for ad in ad_requests%}
                 <tr>
-                  <th scope="row">{{key}}</th>
-                  <td style="font-family: 'Times New Roman', Times, serif;">{{value[0]}}</td>
-                  <td style="font-family: 'Times New Roman', Times, serif;">{{value[1]}}</td>
+                  <th scope="row">{{ad.id}}</th>
+                  <td style="font-family: 'Times New Roman', Times, serif;">{{ad.name}}</td>
+                  <td style="font-family: 'Times New Roman', Times, serif;">{{ad.status}}</td>
                   <td><button type="button" class="btn btn-warning">View</button>|<button type="button" class="btn btn-success">Accept</button>|<button type="button" class="btn btn-danger">Reject</button></td>
                 </tr>
               {%endfor%}
               </tbody>
             </table>
             {%else%}
-            <h3 style="font-family: 'Times New Roman', Times, serif;">No Ad-Request available!</h3>
+            <h3 style="font-family: 'Times New Roman', Times, serif;">No Request available!</h3>
             {%endif%}
             
           </div>

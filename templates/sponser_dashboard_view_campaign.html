@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href = "/static/style.css">
+    <link rel="stylesheet" href = "/static/dashboardstyle.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <title>Sponser Dashboard</title>
 </head>
 <body>
-    <div id = "container">
+    <div id = "container-sponser">
       <nav class="navbar navbar-expand-lg navbar-light" style="background-color: khaki;">
         <a class="navbar-brand" href="#">Sponser's Dashboard</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,17 +35,19 @@
             </li>
       </nav><br>
     
+    <div id="campaign">
+      <ul>
+        <h3 style="font-family: 'Times New Roman', Times, serif;"><strong>Name:</strong> {{ campaign.name }}</h3>
+          <li>
+            <h6 style="font-family: 'Times New Roman', Times, serif;"><strong>Budget:</strong> {{ campaign.budget }}</h6>
+          </li>
+          <li>
+            <h6 style="font-family: 'Times New Roman', Times, serif;"><strong>Goals:</strong> {{ campaign.goals }}</h6>
+          </li>
+      </ul>
+    </div>
     <ul>
-      <h3><strong>Name:</strong> {{ campaign.name }}</h3>
-        <li>
-          <h6><strong>Budget:</strong> {{ campaign.budget }}</h6>
-        </li>
-        <li>
-          <h6><strong>Goals:</strong> {{ campaign.goals }}</h6><br>
-        </li>
-    </ul>
-    <ul>
-      <p><h5>Ad-Requests : </h5></p>
+      <p><h5 style="font-family: 'Times New Roman', Times, serif;">Ad-Requests : </h5></p>
     </ul>
     
       
@@ -81,7 +83,7 @@
 
   <br>
           <div class="d-flex justify-content-md-center">
-            <h3 style="font-family: 'Times New Roman', Times, serif;">Add Ad-Request</h3><br><br><br>
+            <h3 style="font-family: 'Times New Roman', Times, serif;">Add Ad-Request</h3><br><br>
           </div>
           <div class="d-flex justify-content-md-center">
             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addAdRequestModal" >+ Create Ad-Request</button>
@@ -89,7 +91,7 @@
   
     
 <!--Modal dialog box for Adding Ad Request-->
-<form method= "POST"  action="/add/ad_request"  >
+<form method= "POST"  action="/add/ad_request/{{campaign.id}}"  >
 <div class="modal fade" id="addAdRequestModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 <div class="modal-dialog">
   <div class="modal-content">
@@ -98,7 +100,7 @@
       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
-      
+      <input for="campaign_id" class="form-control" name="campaign_id" value="{{campaign.id}}" hidden>
       <label for="ad_name" class="form-label">Ad Name</label>
       <input type="text" class="form-control" name="ad_name" id="ad_name">
       <label for="description" class="form-label">Description</label>
@@ -111,8 +113,6 @@
       <input type = "text" class ="form-control" name="status" id="status" placeholder="Accepted/Rejected">
       <label for="influencer" class="form-label">Influencer Assigned</label>
       <input type="number" class="form-control" name="influencer" id="influencer">
-      <label for="campaign_id" class="form-label">Campaign ID</label>
-      <input type="number" class="form-control" name="campaign_id" id="campaign_id">
       
     </div>
     <div class="modal-footer" >

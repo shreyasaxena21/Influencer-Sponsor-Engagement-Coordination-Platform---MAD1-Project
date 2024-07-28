@@ -9,6 +9,20 @@
     
 }
 
+#container-influencer-profile{
+    border: 2px solid black;
+    padding: 10px;
+    height: 900px;
+    
+}
+
+#container-influencer-view{
+    border: 2px solid black;
+    padding: 10px;
+    height: 640px;
+    
+}
+
 #container-influencer-find{
     border: 2px solid black;
     padding: 10px;
@@ -48,15 +62,33 @@
 #container-sponser{
     border: 2px solid black;
     padding: 10px;
-    height: 700px;
+    height: 1000px;
+}
+
+#container-sponser-view{
+    border: 2px solid black;
+    padding: 10px;
+    height: 640px;
 }
 
 #container-admin{
     border: 2px solid black;
     padding: 10px;
-    height: 900px;
+    height: 1000px;
 }
+
+#container-admin-view{
+    border: 2px solid black;
+    padding: 10px;
+    height: 640px;
+}
+
 
 #main{
     padding: 20px;
 }
+
+#main-admin{
+    border: 2px solid black;
+}
+

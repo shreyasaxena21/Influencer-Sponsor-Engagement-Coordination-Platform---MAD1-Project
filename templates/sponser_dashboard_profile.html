@@ -20,19 +20,23 @@
               <a class="nav-link" href="/sponser/dashboard/profile"> Profile </a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="/sponser/dashboard/campaign{{id}}"> Campaigns</span></a>
+              <a class="nav-link" href="/sponser/dashboard/campaign/{{sponser.id}}"> Campaigns</a>
             </li>
             <li class="nav-item active">
               <a class="nav-link" href="/sponser/dashboard/find"> Find</span></a>
             </li>            
             <li class="nav-item active">
-              <a class="nav-link" href="#"> Stats </span></a>
+              <a class="nav-link" href="#"> Stats </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/login"> Logout</a>
             </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="/edit/profile/{{sponser.id}}"> <b>Edit Profile ({{sponser.user_name}})</b></a>
+            </li>
+
       </nav><br>
-            <label><h4 style="font-family: 'Times New Roman', Times, serif;">Welcome Sponsor "{{username}}"  </h4></label>
+            <label><h4 style="font-family: 'Times New Roman', Times, serif;">Welcome Sponsor "{{sponser.user_name}}"  </h4></label>
             <!-- <h5>Sponsor ID : {{id}}</h5> -->
             <br><br>
             <label><h5 style="font-family: 'Times New Roman', Times, serif;"> Active Campaigns :</h5></label>
@@ -48,12 +52,12 @@
                 </tr>
               </thead>
               <tbody>
-              {%for key, value in campaigns.items()%}
+              {%for campaign in campaigns%}
                 <tr>
-                  <th scope="row" style="font-family: 'Times New Roman', Times, serif;">{{key}}</th>
-                  <td style="font-family: 'Times New Roman', Times, serif;">{{value[0]}}</td>
-                  <td style="font-family: 'Times New Roman', Times, serif;">{{value[1]}}</td>
-                  <td><button type="button" class="btn btn-success">View</button></td>
+                  <th scope="row" style="font-family: 'Times New Roman', Times, serif;">{{campaign.id}}</th>
+                  <td style="font-family: 'Times New Roman', Times, serif;">{{campaign.name}}</td>
+                  <td style="font-family: 'Times New Roman', Times, serif;">{{campaign.start_date}}</td>
+                  <td><a href="/view/campaign/sponser/{{campaign.id}}"><button type="button" class="btn btn-success">View</button></a></td>
                 </tr>
               {%endfor%}
               </tbody>

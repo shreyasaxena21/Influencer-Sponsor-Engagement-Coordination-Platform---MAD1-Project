@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href = "/static/dashboardstyle.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <div id = "container-admin-view">
+      <nav class="navbar navbar-expand-lg navbar-light " style="background-color: lightseagreen;">
+        <a class="navbar-brand" href="#">Admin's Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="/admin/dashboard/info"> Info <span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="/admin/dashboard/find"> Find<span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="#"> Stats <span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/login"> Logout</a>
+            </li>
+          </nav><br><br>
+
+          <div id="main-admin" >
+            <ul>
+                <div style="text-align: center;">
+                   <h2 style="font-family: 'Times New Roman', Times, serif;"><strong>Influencer Name : </strong> {{ user.full_name }}</h2><br>
+               </div>
+                  <li>
+                    <h5 style="font-family: 'Times New Roman', Times, serif;"><strong>Number of Followers :</strong> {{ user.followers }} </h5>
+                  </li>
+                  <li>
+                    <h5 style="font-family: 'Times New Roman', Times, serif;"><strong>Category of the influencer :</strong> {{ user.category }}</h5>
+                  </li>
+                  <li>
+                    <h5 style="font-family: 'Times New Roman', Times, serif;"><strong>Niche :</strong> {{ user.niche }}</h5>
+                  </li>
+              </ul>
+          </div>
