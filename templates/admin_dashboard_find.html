@@ -23,7 +23,7 @@
                   <a class="nav-link" href="/admin/dashboard/find"> Find<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item active">
-                  <a class="nav-link" href="#"> Stats <span class="sr-only"></span></a>
+                  <a class="nav-link" href="/admin/stats"> Stats <span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="/login"> Logout</a>
@@ -55,7 +55,7 @@
           </style>
 
 
-<div class="justify-content-center">
+<div id="campaign"  class="justify-content-center">
   {%if influencers %}
   <table class="table">
     <thead>
@@ -78,7 +78,7 @@
         <td style="font-family: 'Times New Roman', Times, serif;">{{value[2]}}</td>
         <td style="font-family: 'Times New Roman', Times, serif;">{{value[3]}} </td>
 
-        <td><a href="/admin/view/user/{{key}}"><button type="button" class="btn btn-success">View</button></a>|<button type="button" class="btn btn-danger">Flag</button></td>
+        <td><a href="/admin/view/user/{{key}}"><button type="button" class="btn btn-success">View</button></a>|<a href="/flag/user/{{key}}"><button type="button" class="btn btn-danger">Flag</button></a></td>
       </tr>
     {%endfor%}
     </tbody>
@@ -86,7 +86,7 @@
   {%else%}
   <h3 style="font-family: 'Times New Roman', Times, serif;">No Influencer available!</h3>
   {%endif%}<br>
-</div>
+
 
 <div class="justify-content-center">
   {%if sponsers %}
@@ -107,7 +107,7 @@
         <td style="font-family: 'Times New Roman', Times, serif;">{{value[0]}}</td>
         <td style="font-family: 'Times New Roman', Times, serif;">{{value[1]}}</td>
 
-        <td><a href="/admin/view/sponser/{{key}}"><button type="button" class="btn btn-success">View</button></a>|<button type="button" class="btn btn-danger">Flag</button></td>
+        <td><a href="/admin/view/sponser/{{key}}"><button type="button" class="btn btn-success">View</button></a>|<a href="/flag/sponser/{{key}}"><button type="button" class="btn btn-danger">Flag</button></a></td>
       </tr>
     {%endfor%}
     </tbody>
@@ -115,6 +115,7 @@
   {%else%}
   <h3 style="font-family: 'Times New Roman', Times, serif;">No Sponsor available!</h3>
   {%endif%}<br>
+</div>
 </div>
         
 </body>

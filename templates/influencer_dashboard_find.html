@@ -9,7 +9,7 @@
 </head>
 <body>
     <div id = "container-influencer-find">
-      <nav class="navbar navbar-expand-lg navbar-light" style="background-color:khaki;">
+      <nav class="navbar navbar-expand-lg navbar-light" style="background-color:orange;">
             <a class="navbar-brand" href="#">Influencer's Dashboard</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -23,7 +23,7 @@
                   <a class="nav-link" href="/influencer/dashboard/find"> Find</a>
                 </li>
                 <li class="nav-item active">
-                  <a class="nav-link" href="#"> Stats</span></a>
+                  <a class="nav-link" href="/influencer/stats"> Stats</span></a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="/login"> Logout</a>
@@ -56,38 +56,39 @@
 
           
           <!--Table creation-->
-          {%if campaigns%}
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Campaign</th>
-                <th scope="col">Start Date</th>
-                <th scope="col">End Date</th>
-                <th scope="col">Budget</th>
-                <th scope="col">Niche</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-            {%for key, value in campaigns.items()%}
-              <tr>
-                <th scope="row">{{key}}</th>
-                <td>{{value[0]}}</td>
-                <td>{{value[1]}}</td>
-                <td>{{value[2]}}</td>
-                <td>${{value[3]}}</td>
-                <td>{{value[4]}}</td>
-
-                <td><a href="/view/campaign/influencer/{{key}}"><button type="button" class="btn btn-warning">View</button></a>|<button type="button" class="btn btn-success">Request</button></td>
-              </tr>
-            {%endfor%}
-            </tbody>
-          </table>
-          {%else%}
-          <h3>No Campaigns available!</h3>
-          {%endif%}<br>
-          
+          <div id="campaign">
+            {%if campaigns%}
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Campaign</th>
+                  <th scope="col">Start Date</th>
+                  <th scope="col">End Date</th>
+                  <th scope="col">Budget</th>
+                  <th scope="col">Niche</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+              {%for key, value in campaigns.items()%}
+                <tr>
+                  <th scope="row">{{key}}</th>
+                  <td>{{value[0]}}</td>
+                  <td>{{value[1]}}</td>
+                  <td>{{value[2]}}</td>
+                  <td>${{value[3]}}</td>
+                  <td>{{value[4]}}</td>
+                  <td><a href="/view/campaign/influencer/{{key}}"><button type="button" class="btn btn-warning">View</button></a>|<button type="button" class="btn btn-success">Request</button></td>
+                </tr>
+              {%endfor%}
+              </tbody>
+            </table>
+            {%else%}
+            <h3>No Campaigns available!</h3>
+            {%endif%}<br>
+            
+          </div>
         <div>
     </div>
 </body>

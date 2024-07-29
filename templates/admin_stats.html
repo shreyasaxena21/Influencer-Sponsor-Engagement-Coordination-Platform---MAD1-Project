@@ -8,7 +8,7 @@
     <title>Admin Dashboard</title>
 </head>
 <body>
-    <div id = "container-admin-view">
+    <div id = "container-admin-stats">
       <nav class="navbar navbar-expand-lg navbar-light " style="background-color: lightseagreen;">
         <a class="navbar-brand" href="#">Admin's Dashboard</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,23 +23,25 @@
               <a class="nav-link" href="/admin/dashboard/find"> Find<span class="sr-only"></span></a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="/admin/stats"> Stats <span class="sr-only"></span></a>
+              <a class="nav-link" href="#"> Stats <span class="sr-only"></span></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/login"> Logout</a>
             </li>
-          </nav><br><br>
+          </nav><br>
 
-          <div id="main-admin" >
-            <ul>
-                <div style="text-align: center;">
-                   <h2 style="font-family: 'Times New Roman', Times, serif;"><strong>Company Name : </strong> {{ sponser.company_name }}</h2><br>
-               </div>
-                  <li>
-                    <h5 style="font-family: 'Times New Roman', Times, serif;"><strong>Number of Campaigns :</strong> {{ sponser.campaigns|length }} </h5>
-                  </li>
-                  <li>
-                    <h5 style="font-family: 'Times New Roman', Times, serif;"><strong>Industry of the Sponsor :</strong> {{ sponser.industry }}</h5>
-                  </li>
-              </ul>
-          </div>
+          <div style="text-align: center; font-family: 'Times New Roman', Times, serif;">
+            <h2>Summary Page</h2>
+           </div>
+
+           <div id="campaign">
+              <div style="padding: 20px;">
+              <img src="/static/img/stats/img.png" width="600px">
+              <img src="/static/img/stats/iimg.png" width="600px">
+              <img src="/static/img/stats/simg.png" width="600px">
+              <img src="/static/img/stats/is_img.png" width="600px">
+              <img src="/static/img/stats/fis_img.png" width="600px">
+
+             </div>
+             
+           </div>

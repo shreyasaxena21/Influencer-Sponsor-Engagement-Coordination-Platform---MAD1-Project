@@ -36,25 +36,16 @@
       <div id="main-admin" >
         <ul>
             <div style="text-align: center;">
-               <h2 style="font-family: 'Times New Roman', Times, serif;"><strong>{{ campaign.name }}</strong> </h2><br>
+               <h2 style="font-family: 'Times New Roman', Times, serif;"><strong>Influencer Name : </strong> {{ user.full_name }}</h2><br>
            </div>
               <li>
-                <h5 style="font-family: 'Times New Roman', Times, serif;"><strong>Description :</strong> {{ campaign.description }}</h5>
+                <h5 style="font-family: 'Times New Roman', Times, serif;"><strong>Number of Followers :</strong> {{ user.followers }} </h5>
               </li>
               <li>
-                <h5 style="font-family: 'Times New Roman', Times, serif;"><strong>Goals :</strong> {{ campaign.goals }}</h5>
+                <h5 style="font-family: 'Times New Roman', Times, serif;"><strong>Category of the influencer :</strong> {{ user.category }}</h5>
               </li>
               <li>
-                <h5 style="font-family: 'Times New Roman', Times, serif;"><strong>Start date :</strong> {{ campaign.start_date }}</h5>
-              </li>
-              <li>
-                <h5 style="font-family: 'Times New Roman', Times, serif;"><strong>End date :</strong> {{ campaign.end_date }}</h5>
-              </li>
-              <li>
-                <h5 style="font-family: 'Times New Roman', Times, serif;"><strong>Niche :</strong> {{ campaign.niche }}</h5>
-              </li>
-              <li>
-                <h5 style="font-family: 'Times New Roman', Times, serif;"><strong>Budget :</strong> ${{ campaign.budget }}</h5>
+                <h5 style="font-family: 'Times New Roman', Times, serif;"><strong>Niche :</strong> {{ user.niche }}</h5>
               </li>
           </ul>
       </div>

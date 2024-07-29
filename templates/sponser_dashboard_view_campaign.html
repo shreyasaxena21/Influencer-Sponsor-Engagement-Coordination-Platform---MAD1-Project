@@ -11,7 +11,7 @@
 </head>
 <body>
     <div id = "container-sponser">
-      <nav class="navbar navbar-expand-lg navbar-light" style="background-color: khaki;">
+      <nav class="navbar navbar-expand-lg navbar-light" style="background-color: darkgoldenrod;">
         <a class="navbar-brand" href="#">Sponser's Dashboard</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -28,7 +28,7 @@
               <a class="nav-link" href="/sponser/dashboard/find"> Find</span></a>
             </li>            
             <li class="nav-item active">
-              <a class="nav-link" href="#"> Stats </span></a>
+              <a class="nav-link" href="/sponser/stats"> Stats </span></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/login"> Logout</a>
@@ -135,7 +135,7 @@
 <!--End of Modal dialog for Add Ad Requests-->
   
   <!--Modal dialog boxes for Edit Ad Request-->
-  <form action="/edit/ad_request" method="POST">
+  <form action="/edit/ad_request/{{campaign.id}}" method="POST">
     <div class="modal fade" id="editAdRequestModal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -183,7 +183,7 @@
   <!-- End of Modal dialog boxes for Edit Ad Request -->
 
   <!--Modal dialog boxes for Delete Ad requests-->
-  <form action="/delete/campaign" method="POST">
+  <form action="/delete/campaign/{{campaign.id}}" method="POST">
     <div class="modal fade" id="deleteAdRequestModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">

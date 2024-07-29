@@ -23,7 +23,7 @@
               <a class="nav-link" href="/admin/dashboard/find"> Find<span class="sr-only"></span></a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="#"> Stats <span class="sr-only"></span></a>
+              <a class="nav-link" href="/admin/stats"> Stats <span class="sr-only"></span></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/login"> Logout</a>
@@ -63,32 +63,78 @@
  
 
           <div id="main">
-           <label><h5 style="font-family: 'Times New Roman', Times, serif;"><b>Flagged Users/Campaigns :</b></h5></label>
+           <label><h5 style="font-family: 'Times New Roman', Times, serif;"><b>Flagged Campaigns/Sponsors :</b></h5></label>
           </div>
 
           <div id="flagged">
+            {%if flagged_sponser%}
             <table class="table">
               <thead>
                 <tr>
                   <th scope="col">*</th>
-                  <th style="font-family: 'Times New Roman', Times, serif;" scope="col">Campaign</th>
-                  <th style="font-family: 'Times New Roman', Times, serif;" scope="col">Company</th>
+                  <th style="font-family: 'Times New Roman', Times, serif;" scope="col">Company Name</th>
+                  <th style="font-family: 'Times New Roman', Times, serif;" scope="col">Email</th>
+                  <th style="font-family: 'Times New Roman', Times, serif;" scope="col">Industry</th>
                   <th style="font-family: 'Times New Roman', Times, serif;" scope="col">Action</th>
                 </tr>
               </thead>
+              {%for key, value in flagged_sponser.items()%}
               <tbody>
                 <tr>
-                  <th style="font-family: 'Times New Roman', Times, serif;" scope="row">1</th>
-                  <td style="font-family: 'Times New Roman', Times, serif;">Campaign 01</td>
-                  <td style="font-family: 'Times New Roman', Times, serif;">Company 01</td>
-                  <td><button type="button" class="btn btn-success">View</button>||<button type="button" class="btn btn-danger">Remove</button></td>
+                  <th style="font-family: 'Times New Roman', Times, serif;" scope="row">{{key}}</th>
+                  <td style="font-family: 'Times New Roman', Times, serif;">{{value[0]}}</td>
+                  <td style="font-family: 'Times New Roman', Times, serif;">{{value[1]}}</td>
+                  <td style="font-family: 'Times New Roman', Times, serif;">{{value[2]}}</td>
+                  <td><a href="/admin/view/sponser/{{key}}"><button type="button" class="btn btn-success">View</button></a>||<a href="/remove/flagged/sponser/{{key}}"><button type="button" class="btn btn-danger">Remove</button></a></td>
                 </tr>
                 <tr>
+                {%endfor%}
               </tbody>
             </table>
+            {%else%}
+            <h3 style="font-family: 'Times New Roman', Times, serif;">No Flagged Sponsors!</h3>
+            {%endif%}
           </div>
           
         <div>
+
+          <div id="main">
+            <label><h5 style="font-family: 'Times New Roman', Times, serif;"><b>Flagged Users :</b></h5></label>
+           </div>
+ 
+           <div id="flagged">
+             {%if flagged_user%}
+             <table class="table">
+               <thead>
+                 <tr>
+                   <th scope="col">*</th>
+                   <th style="font-family: 'Times New Roman', Times, serif;" scope="col">Name</th>
+                   <th style="font-family: 'Times New Roman', Times, serif;" scope="col">Email</th>
+                   <th style="font-family: 'Times New Roman', Times, serif;" scope="col">Category</th>
+                   <th style="font-family: 'Times New Roman', Times, serif;" scope="col">Followers</th>
+                   <th style="font-family: 'Times New Roman', Times, serif;" scope="col">Action</th>
+                 </tr>
+               </thead>
+               {%for key, value in flagged_user.items()%}
+               <tbody>
+                 <tr>
+                   <th style="font-family: 'Times New Roman', Times, serif;" scope="row">{{key}}</th>
+                   <td style="font-family: 'Times New Roman', Times, serif;">{{value[0]}}</td>
+                   <td style="font-family: 'Times New Roman', Times, serif;">{{value[1]}}</td>
+                   <td style="font-family: 'Times New Roman', Times, serif;">{{value[2]}}</td>
+                   <td style="font-family: 'Times New Roman', Times, serif;">{{value[3]}}</td>
+                   <td><a href="/admin/view/user/{{key}}"><button type="button" class="btn btn-success">View</button></a>||<a href="/remove/flagged/user/{{key}}"><button type="button" class="btn btn-danger">Remove</button></a></td>
+                 </tr>
+                 <tr>
+                 {%endfor%}
+               </tbody>
+             </table>
+             {%else%}
+             <h3 style="font-family: 'Times New Roman', Times, serif;">No Flagged Users!</h3>
+             {%endif%}
+           </div>
+           
+         <div>
    </div>
 </body>
 </html>

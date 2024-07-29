@@ -8,7 +8,7 @@
     <title>Sponser Dashboard</title>
 </head>
 <body>
-    <div id = "container-sponser-view">
+    <div id = "container-sponser">
       <nav class="navbar navbar-expand-lg navbar-light" style="background-color: darkgoldenrod;">
         <a class="navbar-brand" href="#">Sponser's Dashboard</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,35 +26,20 @@
               <a class="nav-link" href="/sponser/dashboard/find"> Find</span></a>
             </li>            
             <li class="nav-item active">
-              <a class="nav-link" href="/sponser/stats"> Stats </span></a>
+              <a class="nav-link" href="#"> Stats </span></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/login"> Logout</a>
             </li>
       </nav><br>
 
-      <div id="main-admin" >
-        <ul>
-            <div style="text-align: center;">
-               <h2 style="font-family: 'Times New Roman', Times, serif;"><strong>{{ campaign.name }}</strong> </h2><br>
-           </div>
-              <li>
-                <h5 style="font-family: 'Times New Roman', Times, serif;"><strong>Description :</strong> {{ campaign.description }}</h5>
-              </li>
-              <li>
-                <h5 style="font-family: 'Times New Roman', Times, serif;"><strong>Goals :</strong> {{ campaign.goals }}</h5>
-              </li>
-              <li>
-                <h5 style="font-family: 'Times New Roman', Times, serif;"><strong>Start date :</strong> {{ campaign.start_date }}</h5>
-              </li>
-              <li>
-                <h5 style="font-family: 'Times New Roman', Times, serif;"><strong>End date :</strong> {{ campaign.end_date }}</h5>
-              </li>
-              <li>
-                <h5 style="font-family: 'Times New Roman', Times, serif;"><strong>Niche :</strong> {{ campaign.niche }}</h5>
-              </li>
-              <li>
-                <h5 style="font-family: 'Times New Roman', Times, serif;"><strong>Budget :</strong> ${{ campaign.budget }}</h5>
-              </li>
-          </ul>
-      </div>
+      <div style="text-align: center; font-family: 'Times New Roman', Times, serif;">
+        <h2>Summary Page</h2>
+       </div>
+
+       <div id="campaign">
+          <div style="padding: 20px;">
+          <img src="/static/img/stats/sponser_img.png" width="600px">
+         </div>
+         
+       </div>
