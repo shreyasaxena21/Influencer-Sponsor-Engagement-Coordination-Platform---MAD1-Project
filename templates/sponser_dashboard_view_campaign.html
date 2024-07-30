@@ -7,25 +7,25 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <title>Sponser Dashboard</title>
+    <title>Sponsor Dashboard</title>
 </head>
 <body>
     <div id = "container-sponser">
       <nav class="navbar navbar-expand-lg navbar-light" style="background-color: darkgoldenrod;">
-        <a class="navbar-brand" href="#">Sponser's Dashboard</a>
+        <a class="navbar-brand" href="#">Sponsor's Dashboard</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item active">
-              <a class="nav-link" href="/sponser/dashboard/profile"> Profile </a>
+              <a class="nav-link" href="/sponser/dashboard/profile/{{campaign.sponser_id}}"> Profile </a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="/sponser/dashboard/campaign"> Campaigns</span></a>
+              <a class="nav-link" href="/sponser/dashboard/campaign/{{campaign.sponser_id}}"> Campaigns</span></a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="/sponser/dashboard/find"> Find</span></a>
+              <a class="nav-link" href="/sponser/dashboard/find/{{campaign.sponser_id}}"> Find</span></a>
             </li>            
             <li class="nav-item active">
               <a class="nav-link" href="/sponser/stats"> Stats </span></a>
@@ -109,8 +109,6 @@
       <textarea class="form-control" name="terms" id="terms" rows="2"></textarea>
       <label for="payment" class="form-label">Payment</label>
       <input type="number" class="form-control" name="payment" id="payment">
-      <label for="status" class="form-label">Status</label>
-      <input type = "text" class ="form-control" name="status" id="status" placeholder="Accepted/Rejected">
       <label for="influencer" class="form-label">Influencer Assigned</label>
       <input type="number" class="form-control" name="influencer" id="influencer">
       

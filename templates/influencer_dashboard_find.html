@@ -17,16 +17,19 @@
             <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav">
                 <li class="nav-item active">
-                  <a class="nav-link" href="/influencer/dashboard/profile"> Profile </a>
+                  <a class="nav-link" href="/influencer/dashboard/profile/{{influencer.id}}"> Profile </a>
                 </li>
                 <li class="nav-item active">
-                  <a class="nav-link" href="/influencer/dashboard/find"> Find</a>
+                  <a class="nav-link" href="/influencer/dashboard/find/{{influencer.id}}"> Find</a>
                 </li>
                 <li class="nav-item active">
                   <a class="nav-link" href="/influencer/stats"> Stats</span></a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="/login"> Logout</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/edit/profile/page/{{influencer.id}}" > <strong>Edit Profile ({{influencer.full_name}})</strong></a>
                 </li>
           </nav><br>
           <form action="/influencer/search"  class="form-inline">
@@ -63,10 +66,11 @@
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Campaign</th>
-                  <th scope="col">Start Date</th>
-                  <th scope="col">End Date</th>
-                  <th scope="col">Budget</th>
                   <th scope="col">Niche</th>
+                  <th scope="col">End Date</th>
+                  <th scope="col">Start Date</th>
+                  <th scope="col">Budget</th>
+                 
                   <th scope="col">Action</th>
                 </tr>
               </thead>
@@ -77,9 +81,19 @@
                   <td>{{value[0]}}</td>
                   <td>{{value[1]}}</td>
                   <td>{{value[2]}}</td>
-                  <td>${{value[3]}}</td>
                   <td>{{value[4]}}</td>
-                  <td><a href="/view/campaign/influencer/{{key}}"><button type="button" class="btn btn-warning">View</button></a>|<button type="button" class="btn btn-success">Request</button></td>
+                  <td>${{value[3]}}</td>
+                  <td><div id="button-container-influencer">
+                            <a href="/view/campaign/influencer/{{key}}"><button type="button" class="btn btn-warning">View</button></a>
+                            <form action="/send/request/{{influencer.id}}" method="POST">
+                            <input type="hidden" name="campaign_id" value="{{ key }}">
+                            <input type="hidden" name="sponser_id"  value="{{value[5]}}">
+                            <input type="hidden" name="influencer_id"  value="{{influencer.id}}">
+                            <button type="submit" class="btn btn-success">Request</button></td>
+                          </form>
+                  </div>
+
+                      
                 </tr>
               {%endfor%}
               </tbody>

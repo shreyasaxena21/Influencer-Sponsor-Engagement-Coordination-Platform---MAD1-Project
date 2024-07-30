@@ -5,25 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href = "/static/dashboardstyle.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Sponser Dashboard</title>
+    <title>Sponsor Dashboard</title>
 </head>
 <body>
     <div id = "container-sponser">
       <nav class="navbar navbar-expand-lg navbar-light" style="background-color: darkgoldenrod;">
-        <a class="navbar-brand" href="#">Sponsor</a>
+        <a class="navbar-brand" href="#">Sponsor's Dashboard</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item active">
-              <a class="nav-link" href="/sponser/dashboard/profile"> Profile </a>
+              <a class="nav-link" href="/sponser/dashboard/profile/{{sponser.id}}"> Profile </a>
             </li>
             <li class="nav-item active">
               <a class="nav-link" href="/sponser/dashboard/campaign/{{sponser.id}}"> Campaigns</a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="/sponser/dashboard/find"> Find</span></a>
+              <a class="nav-link" href="/sponser/dashboard/find/{{sponser.id}}"> Find</span></a>
             </li>            
             <li class="nav-item active">
               <a class="nav-link" href="/sponser/stats"> Stats </a>
@@ -50,7 +50,8 @@
                   <tr>
                     <th scope="col">*</th>
                     <th scope="col" style="font-family: 'Times New Roman', Times, serif;">Campaign</th>
-                    <th scope="col" style="font-family: 'Times New Roman', Times, serif;">Progress</th>
+                    <th scope="col" style="font-family: 'Times New Roman', Times, serif;">Niche</th>
+                    <th scope="col" style="font-family: 'Times New Roman', Times, serif;">Visibility</th>
                     <th scope="col" style="font-family: 'Times New Roman', Times, serif;">Action</th>
                   </tr>
                 </thead>
@@ -59,8 +60,9 @@
                   <tr>
                     <th scope="row" style="font-family: 'Times New Roman', Times, serif;">{{campaign.id}}</th>
                     <td style="font-family: 'Times New Roman', Times, serif;">{{campaign.name}}</td>
-                    <td style="font-family: 'Times New Roman', Times, serif;">{{campaign.start_date}}</td>
-                    <td><a href="/view/campaign/sponser/{{campaign.id}}"><button type="button" class="btn btn-success">View</button></a></td>
+                    <td style="font-family: 'Times New Roman', Times, serif;">{{campaign.niche}}</td>
+                    <td style="font-family: 'Times New Roman', Times, serif;">{{campaign.visibility}}</td>
+                    <td><a href="/view/campaign/sponser/{{campaign.id}}"><button type="button" class="btn btn-warning">View</button></a></td>
                   </tr>
                 {%endfor%}
                 </tbody>
@@ -72,23 +74,37 @@
 
             <label><h5 style="font-family: 'Times New Roman', Times, serif; padding-left: 20px;"><b>New Requests :</b></h5></label>
             <div id="campaign">
-              {%if influencer_requests%}
+              {%if requests%}
               <table class="table">
                 <thead>
                   <tr>
                     <th scope="col">*</th>
-                    <th scope="col" style="font-family: 'Times New Roman', Times, serif;">Ad-Name</th>
+                    <th scope="col" style="font-family: 'Times New Roman', Times, serif;">Influencer Name</th>
+                    <th scope="col" style="font-family: 'Times New Roman', Times, serif;">Campaign Name</th>
                     <th scope="col" style="font-family: 'Times New Roman', Times, serif;">Status</th>
                     <th scope="col" style="font-family: 'Times New Roman', Times, serif;">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                {%for request in influencer_requests%}
+                {%for request in requests%}
                   <tr>
-                    <th scope="row">{{ad.id}}</th>
-                    <td style="font-family: 'Times New Roman', Times, serif;">{{ad.name}}</td>
-                    <td style="font-family: 'Times New Roman', Times, serif;">{{ad.status}}</td>
-                    <td><button type="button" class="btn btn-warning">View</button>|<button type="button" class="btn btn-success">Accept</button>|<button type="button" class="btn btn-danger">Reject</button></td>
+                    <th scope="row">{{request.id}}</th>
+                    <td style="font-family: 'Times New Roman', Times, serif;">{{request.influencer.full_name}}</td>
+                    <td style="font-family: 'Times New Roman', Times, serif;">{{request.campaign.name}}</td>
+                    <td style="font-family: 'Times New Roman', Times, serif;">{{request.status}}</td>
+                    <td>
+                      <div id="button-container">
+                        <form action="/accept/request/{{sponser.id}}" method="POST">
+                          <input type="hidden" name="request_id" value="{{request.id}}">
+                          <button type="submit" class="btn btn-success">Accept</button>
+                        </form><br>
+                        <form action="/reject/request/{{sponser.id}}" method="POST">
+                          <input type="hidden" name="request_id" value="{{request.id}}">
+                          <button type="submit" class="btn btn-danger">Reject</button></td>
+                        </form>
+                      </div>
+                      
+                      
                   </tr>
                 {%endfor%}
                 </tbody>

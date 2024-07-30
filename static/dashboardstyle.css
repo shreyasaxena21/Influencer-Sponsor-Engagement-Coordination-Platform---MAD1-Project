@@ -102,3 +102,17 @@
     border-radius: 10px;
 }
 
+#edit{
+    border: 2px;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+#button-container{
+    display: flex;
+    gap: 10px;
+}
+
+#button-container-influencer{
+    display: flex;
+}

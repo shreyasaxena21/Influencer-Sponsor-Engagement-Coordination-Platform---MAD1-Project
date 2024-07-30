@@ -101,14 +101,15 @@ def admin_dashboard():
 def influencer_dashboard(i_id):
     influencer = User.query.get(i_id)
     campaign_summary = fetch_campaigns()
-    requests = influencer.ad_request
-    return render_template("influencer_dashboard_profile.html",  influencer = influencer, campaigns = campaign_summary, ad_requests = requests)
+    requests = Sponser_Request.query.filter_by(influencer_id = i_id)
+    return render_template("influencer_dashboard_profile.html",  influencer = influencer, campaigns = campaign_summary, requests = requests)
 
 @app.route('/sponser/dashboard/<int:s_id>',  methods=['GET', 'POST'])
 def sponser_dashboard(s_id):
     sponser = Sponser.query.get(s_id)
+    requests = Influencer_Request.query.filter_by(sponser_id = s_id).all()
     campaign_summary = sponser.campaigns
-    return render_template("sponser_dashboard_profile.html", sponser = sponser, campaigns=campaign_summary) 
+    return render_template("sponser_dashboard_profile.html", sponser = sponser, campaigns=campaign_summary, requests = requests) 
 
 #-------------------------------------------------------User defined function-------------------------------------------------------
 
@@ -117,7 +118,7 @@ def fetch_campaigns():
     campaign_list = {}
     for campaign in campaigns: 
         if campaign.id not in campaign_list.keys():
-            campaign_list[campaign.id] = [campaign.name, campaign.start_date, campaign.end_date, campaign.budget, campaign.niche]
+            campaign_list[campaign.id] = [campaign.name, campaign.niche, campaign.end_date, campaign.budget, campaign.start_date, campaign.sponser_id]
     return campaign_list
 
 def fetch_ad_requests():
@@ -125,7 +126,7 @@ def fetch_ad_requests():
     ad_request_list = {}
     for ad in ad_request: 
         if ad.id not in ad_request_list.keys():
-            ad_request_list[ad.id] = [ad.name, ad.status]
+            ad_request_list[ad.id] = [ad.name, ad.status, ad.influencer_id]
     return ad_request_list
 
 def fetch_influencers():
@@ -334,17 +335,18 @@ def delete_ad_request(campaign_id):
 
 #-------------------------------------------------------Sponser Routes-------------------------------------------------------
 
-@app.route("/sponser/dashboard/profile", methods = ["GET", "POST"])
-def sponser_dashboard_profile():
-    campaign_summary = fetch_campaigns()
-    return render_template("sponser_dashboard_profile.html",campaigns=campaign_summary)
+@app.route("/sponser/dashboard/profile/<int:s_id>", methods = ["GET", "POST"])
+def sponser_dashboard_profile(s_id):
+    sponser = Sponser.query.get(s_id)
+    return redirect(f'/sponser/dashboard/{sponser.id}')
 
 
 
-@app.route("/sponser/dashboard/find", methods = ["GET", "POST"])
-def sponser_dashboard_find():
+@app.route("/sponser/dashboard/find/<int:s_id>", methods = ["GET", "POST"])
+def sponser_dashboard_find(s_id):
+    sponser = Sponser.query.get(s_id)
     influencers = fetch_influencers()
-    return render_template("sponser_dashboard_find.html", influencers = influencers)
+    return render_template("sponser_dashboard_find.html", sponser = sponser, influencers = influencers)
 
 @app.route('/sponser/search', methods=["GET"])
 def text_search_sponser():
@@ -378,16 +380,17 @@ def edit_sponser_profile(s_id):
 
 #-------------------------------------------------------Influencer routes-------------------------------------------------------
 
-@app.route("/influencer/dashboard/find")
-def influencer_dashboard_find():
+@app.route("/influencer/dashboard/find/<int:i_id>")
+def influencer_dashboard_find(i_id):
+    influencer = User.query.get(i_id)
     campaign_summary = fetch_campaigns()
-    return render_template("influencer_dashboard_find.html", campaigns = campaign_summary)
+    return render_template("influencer_dashboard_find.html", influencer = influencer, campaigns = campaign_summary)
 
-@app.route("/influencer/dashboard/profile")
-def influencer_dashboard_profile():
-    campaign_summary = fetch_campaigns()
-    ad_request_summary = fetch_ad_requests()
-    return render_template("influencer_dashboard_profile.html", campaigns=campaign_summary, ad_requests=ad_request_summary)
+@app.route("/influencer/dashboard/profile/<int:i_id>")
+def influencer_dashboard_profile(i_id):
+    influencer = User.query.get(i_id)
+    return redirect(f'/influencer/dashboard/{influencer.id}')
+    
 
 
 @app.route('/influencer/search', methods=["GET"])
@@ -405,15 +408,15 @@ def edit_profile_page(i_id):
     user = User.query.get(i_id)
     return render_template("edit_influencer_profile.html", user = user)
 
-@app.route('/edit/profile/influencer<int:i_id>', methods=["GET", "POST"])
+@app.route('/edit/profile/influencer/<int:i_id>', methods=["GET", "POST"])
 def edit_influencer_profile(i_id):
     if request.method=="POST":
-        new_user_name = request.form.get("user_name")
-        new_password = request.form.get("password")
+        new_user_name = request.form.get("uname")
+        new_password = request.form.get("pwd")
         user_obj = User.query.filter_by(id = i_id, user_name = new_user_name).first()
         user_obj.user_name = new_user_name
-        user_obj.password = new_password
-        db.session.commit()
+        user_obj.pwd = new_password
+        db.ssession.commit()
         user = User.query.get(i_id)
         return render_template("edit_influencer_profile.html", user_name = user.user_name, username = user.full_name)
     return render_template("influencer_dashboard_profile.html")
@@ -510,7 +513,7 @@ def remove_sponser(s_id):
     db.session.commit()
     return redirect('/admin/dashboard/info')
 
-#-------------------------------------------------------Statistics Routes-------------------------------------------------------
+#-------------------------------------------------------Stats Routes-------------------------------------------------------
 
 @app.route('/admin/stats')
 def show_admin_stats():
@@ -550,7 +553,7 @@ def show_admin_stats():
     plt.title("Flagged Users")
     plt.xlabel("Type of User")
     plt.ylabel("Number of flagged Users")
-    plt.hist(types, color="green")
+    plt.hist(flagged, color="green")
     plt.savefig('static/img/stats/fis_img.png')
 
     influencer = User.query.filter_by(type="general").all()
@@ -569,11 +572,23 @@ def show_admin_stats():
     for s in sponser:
         types.append(s.industry)
     plt.clf()
-    plt.title("Sposnors based on Industry")
+    plt.title("Sponors based on Industry")
     plt.xlabel("Industry")
     plt.ylabel("Number of Sponsors")
     plt.hist(types, color="yellow")
     plt.savefig('static/img/stats/simg.png')
+
+    ad = Ad_request.query.all()
+    types = []
+    for a in ad:
+        types.append(a.status)
+    plt.clf()
+    plt.title("Ad Requests")
+    plt.xlabel("Ad-Requests")
+    plt.ylabel("Number of Ads")
+    plt.hist(types)
+    plt.savefig('static/img/stats/aimg.png')
+
     
     return render_template("admin_stats.html")
 
@@ -590,7 +605,22 @@ def show_influencer_stats():
     plt.ylabel("Number of Campaigns")
     plt.hist(types, color="maroon")
     plt.savefig('static/img/stats/influencer_img.png')
+
+    campaigns = Campaigns.query.all()
+    types = []
+    for campaign in campaigns:
+        types.append(campaign.visibility)
+    plt.clf()
+    plt.title("Active Campaigns")
+    plt.xlabel("Type of Campaigns")
+    plt.ylabel("Number of Campaigns")
+    plt.hist(types)
+    plt.savefig('static/img/stats/cimg.png')
+
     return render_template("influencer_stats.html")
+
+
+
    
 @app.route('/sponser/stats')
 def show_sponser_stats():
@@ -604,13 +634,127 @@ def show_sponser_stats():
     plt.ylabel("Number of Influencers")
     plt.hist(types, color="green")
     plt.savefig('static/img/stats/sponser_img.png')
+
+    influencers = User.query.filter_by(type="general").all()
+    types = []
+    for i in influencers:
+        types.append(i.followers)
+    plt.clf()
+    plt.title("Influencers based on Followers")
+    plt.xlabel("Followers")
+    plt.ylabel("Number of Influencers")
+    plt.hist(types, ec="red")
+    plt.savefig('static/img/stats/fimg.png')
+    
     return render_template("sponser_stats.html")
-   
+
+#-------------------------------------------------------Request button Routes Influencer to Sponser-------------------------------------------------------
+
+@app.route('/send/request/<int:i_id>', methods=["GET", "POST"])
+def send(i_id):
+    if request.method == "POST":
+        influencer = User.query.get(i_id)
+        campaign_id = request.form.get("campaign_id")
+        influencer_id = request.form.get("influencer_id")
+        sponser_id = request.form.get("sponser_id")
+        new_request = Influencer_Request(influencer_id = influencer_id, sponser_id = sponser_id, campaign_id = campaign_id)
+        db.session.add(new_request)
+        db.session.commit()
+        print("Request sent successfully!")
+        return redirect(f'/influencer/dashboard/find/{influencer.id}')
+    
+@app.route('/accept/request/<int:s_id>' , methods = ["GET" , "POST"])
+def accept(s_id):
+    if request.method == "POST":
+        sponser = Sponser.query.get(s_id)
+        request_id = request.form.get("request_id")
+        req_obj = Influencer_Request.query.filter_by(id=request_id).first()
+        req_obj.status = "Accepted"
+        db.session.commit()
+        return redirect(f'/sponser/dashboard/{sponser.id}')
+
+@app.route('/reject/request/<int:s_id>' , methods = ["GET" , "POST"])
+def reject(s_id):
+    if request.method == "POST":
+        sponser = Sponser.query.get(s_id)
+        request_id = request.form.get("request_id")
+        req_obj = Influencer_Request.query.filter_by(id=request_id).first()
+        req_obj.status = "Rejected"
+        db.session.commit()
+        return redirect(f'/sponser/dashboard/{sponser.id}')
+    
+
+#-----------------------------------------------------Request button Routes Sponser to Influencer-------------------------------------------------------
+
+@app.route('/request/influencer/<int:s_id>/<int:i_id>')
+def request_influencer(s_id, i_id):
+    influencer = User.query.get(i_id)
+    sponser = Sponser.query.get(s_id)
+    private_campaigns = Campaigns.query.filter_by(sponser_id = s_id, visibility = "Private")
+    ad_request = fetch_ad_requests()
+    return render_template("sponser_private_campaigns.html", private_campaigns = private_campaigns, ad_request = ad_request, influencer=influencer, sponser=sponser)
 
 
+@app.route('/send/request/influencer/<int:s_id>' , methods = ["GET", "POST"])
+def send_request_influencer(s_id):
+    if request.method=="POST":
+        sponser = Sponser.query.get(s_id)
+        campaign_id = request.form.get("campaign_id")
+        sponser_id = request.form.get("sponser_id")
+        influencer_id = request.form.get("influencer_id")
+        new_request = Sponser_Request(influencer_id = influencer_id, sponser_id = sponser_id, campaign_id = campaign_id)
+        db.session.add(new_request)
+        db.session.commit()
+        print("Request sent successfully!")
+        return redirect(f'/sponser/dashboard/find/{sponser.id}')
+    
+@app.route('/accept/sponser/request/<int:i_id>' , methods = ["GET" , "POST"])
+def accept_request(i_id):
+    if request.method == "POST":
+        influencer = User.query.get(i_id)
+        request_id = request.form.get("request_id")
+        req_obj = Sponser_Request.query.filter_by(id=request_id).first()
+        req_obj.status = "Accepted"
+        db.session.commit()
+        return redirect(f'/influencer/dashboard/{influencer.id}')
 
+@app.route('/reject/sponser/request/<int:i_id>' , methods = ["GET" , "POST"])
+def reject_request(i_id):
+    if request.method == "POST":
+        influencer = User.query.get(i_id)
+        request_id = request.form.get("request_id")
+        req_obj = Sponser_Request.query.filter_by(id=request_id).first()
+        req_obj.status = "Rejected"
+        db.session.commit()
+        return redirect(f'/influencer/dashboard/{influencer.id}')
+    
+@app.route('/view/ad/<int:campaign_id>')
+def view_ad(campaign_id):
+    ads = Ad_request.query.filter_by(campaign_id = campaign_id).all()
+    return render_template("view_ad.html", ads = ads)
 
+#-----------------------------------------------------Accept/Reject button Routes for Ads-------------------------------------------------------
 
+@app.route('/reject/ad/<int:a_id>', methods=["POST"])
+def reject_ad(a_id):
+    if request.method=="POST":
+        ad = Ad_request.query.get(a_id)
+        ad_id = request.form.get("ad_id")
+        ad_obj = Ad_request.query.filter_by(id = ad_id).first()
+        ad_obj.status = "Rejected"
+        db.session.commit()
+        return redirect(f'/influencer/dashboard/{ad.influencer_id}')
+    
+@app.route('/accept/ad/<int:a_id>', methods=["POST"])
+def accept_ad(a_id):
+    if request.method=="POST":
+        ad = Ad_request.query.get(a_id)
+        ad_id = request.form.get("ad_id")
+        ad_obj = Ad_request.query.filter_by(id = ad_id).first()
+        ad_obj.status = "Accepted"
+        db.session.commit()
+        return redirect(f'/influencer/dashboard/{ad.influencer_id}')
+    
 
 
 
