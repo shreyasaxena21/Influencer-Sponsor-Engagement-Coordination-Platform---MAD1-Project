@@ -3,6 +3,19 @@
     padding: 0%;
 }
 
+#container{
+    border: 2px solid black;
+    height: 640px;
+    padding: 10px;
+
+    
+}
+
+#main{
+    border: 2px solid darkgoldenrod;
+    padding: 20px;
+    margin-bottom: 20px;
+}
 #container-login{
     border: 2px solid black;
     height: 640px;
