@@ -7,7 +7,7 @@ db=SQLAlchemy() #Instance of SQLALchemy
 class User(db.Model):
     __tablename__ = "user"
     id = db.Column(db.Integer, primary_key = True, nullable = False, autoincrement = True)
-    email = db.Column(db.String, nullable = False)
+    email = db.Column(db.String, nullable = False, unique = True)
     full_name = db.Column(db.String, nullable = False)
     search_name = db.Column(db.String, nullable = False, default="null")
     user_name = db.Column(db.String, unique = True, nullable = False)
@@ -24,7 +24,7 @@ class User(db.Model):
 class Sponser(db.Model):
     __tablename__ = "sponser"
     id = db.Column(db.Integer, primary_key = True, nullable = False, autoincrement = True)
-    email = db.Column(db.String, nullable = False)
+    email = db.Column(db.String, nullable = False, unique = True)
     company_name = db.Column(db.String, nullable = False)
     search_name = db.Column(db.String, nullable = False, default="null")
     user_name = db.Column(db.String, unique = True, nullable = False)

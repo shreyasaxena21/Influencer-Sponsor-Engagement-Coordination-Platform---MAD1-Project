@@ -7,6 +7,7 @@ import matplotlib
 matplotlib.use("Agg") #This make sure that the application run within the server
 
 
+
 @app.route("/")#refers base url 127.0.0.1.5000 local host
 def home():
     return render_template("home.html")
