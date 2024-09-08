@@ -1,4 +1,4 @@
-Influencify – app
+Influencify â€“ app
 
 * Influencer Engagement and Sponsorship Coordination Platform
 * It's a platform to connect Sponsors and Influencers so that sponsors can get their product/service advertised and influencers can get monetary benefit.
@@ -12,6 +12,8 @@ Technologies used
 * Bootstrap 5 was used for styling and designing purpose. 
 * Flask-SQLAlchemy and sqlite3 were used for database operations. * Flask-RESTful was used for implementing the RESTful APIs.
 * Matplotlib is used for generating the insights on campaigns,   sponsors, influencers with the help of histogram plots.
+
+
 
 
 
