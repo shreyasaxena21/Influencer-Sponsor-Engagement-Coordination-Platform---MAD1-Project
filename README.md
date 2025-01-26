@@ -16,9 +16,6 @@ Technologies used
 ![home](https://github.com/user-attachments/assets/9f2477bb-c13b-434e-8e4f-ef70487acc31)
 ![login](https://github.com/user-attachments/assets/af245814-bfeb-4617-8f4b-8ae50d4a71c5)
 ![Sponsor](https://github.com/user-attachments/assets/070e555e-6063-4fb5-99a1-2ae0e7c9304b)
-![admin1](https://github.com/user-attachments/assets/1c0c2253-0aef-4a40-a98f-d812dd4416a5)
-![admin2](https://github.com/user-attachments/assets/dad92d58-6a08-410c-89b8-0c4128e0aa50)
-![influencer1](https://github.com/user-attachments/assets/dd54002a-888c-4105-9d1b-a921288cc0fb)
 ![influencer2](https://github.com/user-attachments/assets/0e89a5e5-b404-4449-89b7-031cade930ed)
 
 
