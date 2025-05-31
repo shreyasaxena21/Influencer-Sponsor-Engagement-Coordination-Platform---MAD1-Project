@@ -1,58 +1,119 @@
-Influencify – app
+# 📣 Influencify – Influencer Engagement and Sponsorship Coordination Platform
 
-* Influencer Engagement and Sponsorship Coordination Platform
-* It's a platform to connect Sponsors and Influencers so that sponsors can get their product/service advertised and influencers can get monetary benefit.
-* A web application and an API is created for multiuser interaction which allows the sponsors to create and edit their campaigns and the influencers can view the public campaigns and send request for a campaign . 
-* The sponsor in response can accept the influencers request and can also send a request to a particular influencer for a private campaign, the influencer can either accept or reject the request. Each user has their own personalised dashboards and can search others based on their username/niche/followers etc.
+**Influencify** is a multi-user web application that bridges the gap between **Sponsors** and **Influencers**. It provides a dynamic platform where brands can promote their products/services through the reach of online influencers, and influencers can monetize their reach and content creation skills.
 
-Technologies used
+---
 
-* Flask framework was used for developing the application. 
-* Jinja2 was used for templating and HTML generation. 
-* Bootstrap 5 was used for styling and designing purpose. 
-* Flask-SQLAlchemy and sqlite3 were used for database operations. * Flask-RESTful was used for implementing the RESTful APIs.
-* Matplotlib is used for generating the insights on campaigns,   sponsors, influencers with the help of histogram plots.
+## 🌟 Key Highlights
 
-![home](https://github.com/user-attachments/assets/9f2477bb-c13b-434e-8e4f-ef70487acc31)
-![login](https://github.com/user-attachments/assets/af245814-bfeb-4617-8f4b-8ae50d4a71c5)
-![Sponsor](https://github.com/user-attachments/assets/070e555e-6063-4fb5-99a1-2ae0e7c9304b)
-![influencer2](https://github.com/user-attachments/assets/0e89a5e5-b404-4449-89b7-031cade930ed)
+- 🎯 Sponsors can **create, manage, and monitor** ad campaigns.
+- 🤝 Influencers can **explore public campaigns**, send collaboration requests, and **receive private campaign invitations**.
+- 🔍 Powerful **search and filter tools** based on username, niche, follower count, and more.
+- 📊 Visual insights into platform activity and trends using **Matplotlib charts**.
+- 🧑‍💼 Personalized dashboards for each user type.
+
+---
+
+## 🧰 Technologies Used
+
+### 🔧 Backend
+- **Flask** – Lightweight and flexible Python web framework  
+- **Flask-SQLAlchemy** – ORM for managing and querying SQLite database  
+- **Flask-RESTful** – For building REST APIs  
+- **sqlite3** – Simple file-based database for development  
+- **Matplotlib** – Used for generating graphical insights and analytics  
+
+### 🎨 Frontend
+- **Jinja2** – Templating engine for rendering dynamic HTML  
+- **Bootstrap 5** – For responsive and mobile-friendly design  
+- **HTML5, CSS3, JavaScript** – For UI interactivity and layout  
+
+---
+
+## 💡 Features
+
+### 👥 Multi-User System
+- Role-based authentication (Sponsor / Influencer)
+- Custom dashboards for each user type
+- Secure login and session handling
+
+### 📢 Sponsors
+- Create, update, and delete marketing campaigns
+- View requests from influencers for collaboration
+- Send **private campaign invites** to specific influencers
+- Monitor campaign performance with visual stats
+
+### 🌐 Influencers
+- Browse **public campaigns** from various sponsors
+- Send campaign participation requests
+- Accept/reject private campaign invitations
+- Track approved campaigns and earnings
+
+### 🔎 Search and Discover
+- Search other users by:
+  - Username
+  - Niche/Category
+  - Follower count
+- View basic analytics of influencer engagement
+
+### 📊 Insights
+- Histogram plots showing:
+  - Active campaigns
+  - Top-performing influencers
+  - Sponsor activity levels
+
+---
+
+## 🖼️ Screenshots
+
+| Home Page | Login Page |
+|-----------|-------------|
+| ![Home](https://github.com/user-attachments/assets/9f2477bb-c13b-434e-8e4f-ef70487acc31) | ![Login](https://github.com/user-attachments/assets/af245814-bfeb-4617-8f4b-8ae50d4a71c5) |
+
+| Sponsor Dashboard | Influencer Dashboard |
+|--------------------|----------------------|
+| ![Sponsor](https://github.com/user-attachments/assets/070e555e-6063-4fb5-99a1-2ae0e7c9304b) | ![Influencer](https://github.com/user-attachments/assets/0e89a5e5-b404-4449-89b7-031cade930ed) |
+
+---
+
+## 🚀 How to Run the Project Locally
+
+```bash
+# Clone the repository
+git clone https://github.com/shreyasaxena21/Influencer-Sponsor-Engagement-Coordination-Platform---MAD1-Project
+cd Influencer-Sponsor-Engagement-Coordination-Platform---MAD1-Project
+
+# Create and activate virtual environment
+python3 -m venv .venv
+source .venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the Flask application
+python app.py
+```
+
+## 🔒 Security Features
+- Session management with Flask
+
+- Role-based access to features
+
+- CSRF protection for forms
 
 
+## 🔮 Future Improvements
+- ✅ Email notifications for request approvals and campaign updates
 
+- 📱 Mobile-responsive version of dashboards
 
+- 🗂️ Admin dashboard for platform overview and moderation
 
+- 💬 In-app messaging between sponsors and influencers
 
+- 🌍 OAuth login (Google/Facebook) support
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+## 📬 Contact
+- For questions or feedback:
+  - 📧 Email: shreyasaxena2104@gmail.com
+  - 🌐 GitHub: https://github.com/shreyasaxena21
