@@ -1,0 +1,119 @@
+/* Base Container */
+#container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fffef7;
+  min-height: 100vh;
+}
+
+/* Navbar */
+.bg-custom {
+  background-color: #fff8dc; /* Light golden */
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.8rem;
+}
+
+.navbar-nav .nav-link {
+  color: #333;
+  margin: 0 10px;
+  font-weight: 500;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #0d6efd;
+}
+
+/* Hero Section */
+section.bg-light {
+  background-color: #fcfce8 !important;
+}
+
+section h1 {
+  color: #444;
+}
+
+.btn-warning, .btn-outline-success {
+  padding: 10px 20px;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 8px;
+}
+
+.btn-warning:hover {
+  background-color: #f0ad4e;
+  color: white;
+}
+
+.btn-outline-success:hover {
+  background-color: #198754;
+  color: white;
+}
+
+/* Features Section */
+.card {
+  border: none;
+  border-radius: 12px;
+  transition: all 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.card-title {
+  color: #333;
+  font-weight: 600;
+}
+
+.card-text {
+  font-size: 0.95rem;
+  color: #666;
+}
+
+/* Image Grid */
+.image-grid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.image-grid img {
+  width: 280px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.image-grid img:hover {
+  transform: scale(1.05);
+}
+
+/* Testimonials */
+.blockquote {
+  padding: 20px;
+  border-left: 4px solid #ffcc00;
+  background-color: #fffdf2;
+  border-radius: 8px;
+}
+
+.blockquote-footer {
+  margin-top: 10px;
+  font-style: italic;
+  color: #777;
+}
+
+/* Footer */
+footer {
+  background-color: #fff8dc;
+  color: #444;
+  border-top: 1px solid #eaeaea;
+  font-size: 0.95rem;
+}

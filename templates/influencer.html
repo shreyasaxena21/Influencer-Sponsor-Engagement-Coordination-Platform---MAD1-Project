@@ -3,77 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href = "/static/loginstyle.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/base.css">
+    <link rel="stylesheet" href="/static/influencer.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Influencer SignUp Page</title>
 </head>
 <body>
-    <div id = "container-influencer">
-      <nav class="navbar navbar-expand-lg navbar-light" style="background-color: lightgoldenrodyellow";>
-        <a class="navbar-brand" href="/">Influencify</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item active">
-              <a class="nav-link" href="/login"> Login <span class="sr-only"></span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/influencer_signup"> Influencer Register</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/sponser_signup"> Sponsor Register</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
+  <div id="container-influencer">
+    <nav class="navbar navbar-expand-lg navbar-light bg-custom px-4">
+      <a class="navbar-brand fw-bold fs-3 text-dark" href="/">Influencify</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/influencer_signup">Influencer Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/sponser_signup">Sponsor Register</a>
+          </li>
+        </ul>
+      </div>
     </nav>
-    <div id="input-form-influencer">
-                <h2>Influencer Register </h2>
-                <div id = ""></div>
-                <form action="/influencer_signup" method = "POST" >
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp">
-                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="fullname" class="form-label">Full Name</label>
-                        <input type="text" class="form-control" name="fullname"  id="fullname" required>
-                    </div>
-                    <div class="mb-3">
-                      <label for="username" class="form-label">User Name</label>
-                      <input type="text" class="form-control" name="uname" id="username" aria-describedby="userHelp" required>
-                      <div id="userHelp" class="form-text">We'll never share your username with anyone else.</div>
-                    </div>
-                    <div class="mb-3">
-                      <label for="pwd" class="form-label">Password</label>
-                      <input type="password" class="form-control" name="pwd"  id="pwd" required>
-                    </div>
-                    <div class="mb-3">
-                      <label for="category" class="form-label">Category</label>
-                      <input type="text" class="form-control" name="category" id="category" required>
-                    </div>
-                    <div class="mb-3">
-                      <label for="niche" class="form-label">Niche</label>
-                      <input type="text" class="form-control" name="niche"  id="niche" required>
-                    </div>
-                    <div class="mb-3">
-                      <label for="followers" class="form-label">Followers</label>
-                      <input type="number" class="form-control" name="followers"  id="followers" required>
-                    </div>
-                    <br>
-                    
-                    <div class="d-flex justify-content-md-center">
-                      <button type="submit" class="btn btn-success">Register</button>
-                    </div>
-                    <div class="d-flex justify-content-md-center">
-                      {{msg}}
-                    </div>
-                    
-                  </form>
-            </div> 
+
+    <div id="input-form-influencer" class="form-box">
+      <h2 class="text-center mb-4">Influencer Register</h2>
+      <form action="/influencer_signup" method="POST">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" name="email" id="email" required>
+          <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <div class="mb-3">
+          <label for="fullname" class="form-label">Full Name</label>
+          <input type="text" class="form-control" name="fullname" id="fullname" required>
+        </div>
+        <div class="mb-3">
+          <label for="username" class="form-label">User Name</label>
+          <input type="text" class="form-control" name="uname" id="username" required>
+        </div>
+        <div class="mb-3">
+          <label for="pwd" class="form-label">Password</label>
+          <input type="password" class="form-control" name="pwd" id="pwd" required>
+        </div>
+        <div class="mb-3">
+          <label for="category" class="form-label">Category</label>
+          <input type="text" class="form-control" name="category" id="category" required>
+        </div>
+        <div class="mb-3">
+          <label for="niche" class="form-label">Niche</label>
+          <input type="text" class="form-control" name="niche" id="niche" required>
+        </div>
+        <div class="mb-3">
+          <label for="followers" class="form-label">Followers</label>
+          <input type="number" class="form-control" name="followers" id="followers" required>
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-success">Register</button>
+        </div>
+        <div class="text-center mt-2">
+          {{msg}}
+        </div>
+      </form>
     </div>
+  </div>
 </body>
 </html>

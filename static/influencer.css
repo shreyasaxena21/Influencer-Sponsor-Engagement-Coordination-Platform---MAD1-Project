@@ -1,0 +1,71 @@
+body {
+  background-color: #fffef7;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Navbar */
+.custom-navbar {
+  background-color: lightgoldenrodyellow !important;
+  padding: 0.8rem 2rem;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.nav-link {
+  color: #444 !important;
+  font-weight: 500;
+  margin-left: 1rem;
+}
+
+.nav-link:hover {
+  color: #000 !important;
+  text-decoration: underline;
+}
+
+/* Form Card */
+.card {
+  background-color: #fff9e5 !important;
+  border: none;
+}
+
+.card h3 {
+  font-family: 'Georgia', serif;
+  color: #333;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border: none;
+  font-weight: bold;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+/* Navbar */
+.custom-navbar {
+  background-color: #fff9e5 !important; /* Matches form background */
+  padding: 0.8rem 2rem;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.nav-link {
+  color: #444 !important;
+  font-weight: 500;
+  margin-left: 1rem;
+}
+
+.nav-link:hover {
+  color: #000 !important;
+  text-decoration: underline;
+}
